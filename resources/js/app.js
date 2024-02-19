@@ -1,7 +1,7 @@
 import './bootstrap';
-import { createApp } from 'vue';
-import IncrementCounter from './components/IncrementCounter.vue';
- 
-createApp({})
-  .component('IncrementCounter', IncrementCounter)
-  .mount('#app')
+
+import {createApp} from 'vue';
+
+import App from './components/App.vue';
+
+createApp(App).mount("#app");
