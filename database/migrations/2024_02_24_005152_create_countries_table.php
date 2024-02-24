@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('name');
             $table->text('code');
+            $table->text('flag')->nullable();
             $table->timestamps();
         });
     }

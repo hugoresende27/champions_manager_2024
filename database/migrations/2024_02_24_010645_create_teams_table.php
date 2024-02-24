@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->text('shortname')->nullable();
+            $table->text('address')->nullable();
+            $table->text('website')->nullable();
+            $table->text('colors')->nullable();
             $table->text('code');
             $table->integer('funding_year');
-            $table->integer('country_id');
+            $table->foreignId('country_id')->constrained();
             $table->integer('rating')->nullable();
             $table->integer('stadium_id')->nullable();
             $table->timestamps();

@@ -12,4 +12,9 @@ class ApiController extends Controller
         $teams = Team::where('country_id', $countryId)->get();
         return response()->json($teams);
     }
+    public function getTeamsById(int $id)
+    {
+        $team = Team::where('id', $id)->first();
+        return response()->json($team);
+    }
 }

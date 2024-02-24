@@ -3,8 +3,8 @@
   
     <div class="container">
 
-        <a href="https://github.com/hugoresende27?tab=repositories" target="_blank" style="text-decoration: none;">
-          <h1 class="title">Champions Manager 2024</h1>
+        <a href={{route('home')}}  style="text-decoration: none;" >
+          <img src="{{asset('/images/logo_cm24.png')}}" alt="cm_logo" style="border-radius: 50%">
         </a>
         <div class="buttons">
           <a href="{{route('startgame')}}">
