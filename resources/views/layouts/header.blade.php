@@ -9,3 +9,5 @@
     <link rel="stylesheet" href="{{asset('css/home_style.css')}}">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

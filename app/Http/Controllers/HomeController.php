@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Country;
 
 class HomeController extends Controller
 {
@@ -13,6 +13,9 @@ class HomeController extends Controller
 
     public function startGame()
     {
-        return view('startgame');
+        $countries = Country::all();
+        return view('startgame', compact('countries'));
     }
+
+    
 }
