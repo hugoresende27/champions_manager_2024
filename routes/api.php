@@ -19,5 +19,12 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('teams/country/{country_id}', [ApiController::class, 'getTeamsByCountry'])->name('teams_by_country');
 Route::get('teams/{team_id}', [ApiController::class, 'getTeamsById'])->name('teams_by_id');
+Route::get('teams/country/{country_id}', [ApiController::class, 'getTeamsByCountry'])->name('teams_by_country');
+
+
+
+Route::get('players/{team_id}', [ApiController::class, 'getPlayersById'])->name('players_by_id');
+Route::get('players/country/{country_id}', [ApiController::class, 'getPlayersByCountryId'])->name('players_by_country_id');
+Route::get('players/team/{team_id}', [ApiController::class, 'getPlayersByTeamId'])->name('players_by_team_id');
+

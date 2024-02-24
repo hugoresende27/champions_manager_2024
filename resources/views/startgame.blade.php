@@ -47,7 +47,9 @@
           </div>
           
           <div class="p-2 m-2">
-            <button id="start-game-btn" class="btn btn-primary" style="display: none;"></button>
+            <a href="{{route('dashboard')}}">
+              <button id="start-game-btn" class="btn btn-primary" style="display: none;"></button>
+            </a>
           </div>
 
       </div>
@@ -69,23 +71,21 @@
     </div>
 
 
-    <div class="row col-12 mt-3 p-3" id="team-players" style="display: none;">
+    <div class="row col-12 mt-3 p-3" id="team-players"  style="display: none; overflow-y: auto; max-height: 300px;">
 
-      <table class="table table-dark table-striped">
+      <table class="table table-dark table-striped" >
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col" class="text-center">Full Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Position</th>
+            <th scope="col">Side</th>
+            <th scope="col">City of Birth</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+    
           </tr>
      
         </tbody>

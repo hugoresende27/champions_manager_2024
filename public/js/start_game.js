@@ -59,14 +59,52 @@ $(document).ready(function() {
             url: 'api/teams/' + teamId,
             type: 'GET',
             success: function(response) {
-            // Update team info card with the retrieved team information
-            $('#team-name').text(response.name);
-            $('#team-funding-year').text(response.funding_year);
-            $('#team-code').text(response.code);
-            // You can update other fields similarly
+   
+                $('#team-name').text(response.name);
+                $('#team-funding-year').text(response.funding_year);
+                $('#team-code').text(response.code);
+              
             },
             error: function(xhr, status, error) {
-            console.error(xhr.responseText);
+                console.error(xhr.responseText);
+            }
+        });
+
+        $.ajax({
+            url: 'api/players/team/' + teamId,
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                // Clear existing table rows
+                $('#team-players tbody').empty();
+                 // Iterate over each player in the response and create table rows
+                $.each(response, function(index, player) {
+
+                    // Calculate age based on birth date
+                    var dob = new Date(player.birth_date);
+                    var ageDifMs = Date.now() - dob.getTime();
+                    var ageDate = new Date(ageDifMs);
+                    var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+                    var row = '<tr>' +
+                   
+                        '<th scope="row" class="text-center">' + player.name + '</th>' +
+                        '<td>' + age + '</td>' +
+                        '<td>' + player.position + '</td>' +
+                        '<td>' + player.side + '</td>' +
+                        '<td>' + player.city_of_birth + '</td>' +
+                        '</tr>';
+                    
+                    // Append the row to the table's tbody
+                    $('#team-players tbody').append(row);
+                });
+
+                // Show the table after populating it
+                $('#team-players').show();
+                    
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
             }
         });
     

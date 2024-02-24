@@ -2,18 +2,26 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
+        //  User::factory()->create([
+        //     'name' => 'Admin',
+        //     'email' => 'admin@material.com',
+        //     'password' => ('secret')
+        // ]);
 
         $this->call(CountrySeeder::class);
         $this->call(TeamSeeder::class);
@@ -23,12 +31,5 @@ class DatabaseSeeder extends Seeder
   
             Player::factory(30)->create(['team_id' => $team->id]);
         }
-     
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
