@@ -1,2 +1,5 @@
-### Champions Manger 2024
-- this is a classic football manager
+
+### Champions Manager 2024
+- This is a classic football manager
+
+![v0](./readme.png)
