@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Player;
 use App\Models\Team;
+use Database\Seeders\API\ApiFootballData;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -34,7 +35,7 @@ class DatabaseSeeder extends Seeder
 
         $api = new ApiFootballData;
 
-        $api->getTeamsDataApi();
+        $api->getLeaguesDataApi();
 
         
     }

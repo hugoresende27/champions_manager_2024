@@ -11,4 +11,10 @@ class Team extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'shortname','address','website','colors','code','funding_year','country_id', 'flag'];
+
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

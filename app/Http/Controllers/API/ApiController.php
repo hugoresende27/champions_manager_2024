@@ -49,8 +49,8 @@ class ApiController extends Controller
     {
         $api = new ApiFootballData;
 
-        $result = $api->getTeamsDataApi();
-dd($result);
+        $result = $api->getLeaguesDataApi();
+        
         return $result;
     }
 }

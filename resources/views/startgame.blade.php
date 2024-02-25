@@ -16,12 +16,17 @@
   
 
           <div id="team-info" class="card text-center" style="width: 18rem; display:none;">
-            <img src="..." class="card-img-top" alt="team_logo">
-            <div class="card-body">
+            <div class="text-center p-3">
+              <img src=""  alt="team_logo" id="team-flag" height="50px" width="50px">
+            </div>
+            <div class="card-body" id="team-card">
               <h5 class="card-title">Team Info</h5>
               <p class="card-text" id="team-name"></p>
               <p class="card-text" id="team-funding-year"></p>
-              <a href="#" class="btn btn-primary" id="team-code"></a>
+              <a href="" id="team-website" target="_blank" style="text-decoration: none">
+                <p class="btn" id="team-code" style="background-color: red; color: white"></p>
+              </a>
+             
             </div>
           </div>
 
@@ -48,7 +53,7 @@
           
           <div class="p-2 m-2">
             <a href="{{route('dashboard')}}">
-              <button id="start-game-btn" class="btn btn-primary" style="display: none;"></button>
+              <button id="start-game-btn" class="btn" style="display: none; background-color: red; color: white" ></button>
             </a>
           </div>
 

@@ -59,10 +59,35 @@ $(document).ready(function() {
             url: 'api/teams/' + teamId,
             type: 'GET',
             success: function(response) {
-   
+
+                 // Extract colors from response and convert to lowercase
+                if (response.colors != null) {
+                    var colors = response.colors.split(" / ").map(function(color) {
+                        return color.toLowerCase().trim();
+                    });
+                } else {
+                    var colors = ['red','white'];
+                }
+                
+            
+                $('#team-code').css({
+                    'background-color': colors[1], 
+                    'color': colors[0] 
+                });
+                $('#team-card').css({
+                    'background-color': colors[0], // Assuming the first color is for background
+                    'color': colors[1] // Assuming the second color is for text
+                });
+                $('#start-game-btn').css({
+                    'background-color': colors[0], // Assuming the first color is for background
+                    'color': colors[1] // Assuming the second color is for text
+                });
+                console.log(response)
                 $('#team-name').text(response.name);
                 $('#team-funding-year').text(response.funding_year);
                 $('#team-code').text(response.code);
+                $('#team-website').attr('href',response.website);
+                $('#team-flag').attr('src', response.flag);
               
             },
             error: function(xhr, status, error) {
