@@ -24,12 +24,18 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(CountrySeeder::class);
-        $this->call(TeamSeeder::class);
+        // $this->call(TeamSeeder::class);
         // $this->call(PlayerSeeder::class);
-        $allTeams = Team::all();
-        foreach ($allTeams as $team) {
+        // $allTeams = Team::all();
+        // foreach ($allTeams as $team) {
   
-            Player::factory(30)->create(['team_id' => $team->id]);
-        }
+        //     Player::factory(5)->create(['team_id' => $team->id]);
+        // }
+
+        $api = new ApiFootballData;
+
+        $api->getTeamsDataApi();
+
+        
     }
 }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Country;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\File;
 class CountrySeeder extends Seeder
 {
     /**
@@ -13,19 +13,12 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        // Define an array of countries
-        $countries = [
-            ['name' => 'Portugal', 'code' => 'PT'],
-            ['name' => 'France', 'code' => 'FR'],
-            ['name' => 'Spain', 'code' => 'ES'],
-            ['name' => 'United Kingdom', 'code' => 'UK'],
-            ['name' => 'Germany', 'code' => 'DE'],
-            ['name' => 'Italy', 'code' => 'IT'],
-            // Add more countries as needed
-        ];
+        $jsonFilePath = public_path('assets/countries_list.json');
 
-        // Loop through the countries array and create records in the countries table
-        foreach ($countries as $country) {
+        $jsonString = File::get($jsonFilePath);
+        $countriesArray = json_decode($jsonString, true);
+
+        foreach ($countriesArray as $country) {
             Country::create($country);
         }
     }

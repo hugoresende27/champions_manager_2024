@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('country_id')->constrained();
             $table->integer('rating')->nullable();
             $table->integer('stadium_id')->nullable();
+            $table->text('flag')->nullable();
             $table->timestamps();
         });
     }

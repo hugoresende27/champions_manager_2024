@@ -28,3 +28,5 @@ Route::get('players/{team_id}', [ApiController::class, 'getPlayersById'])->name(
 Route::get('players/country/{country_id}', [ApiController::class, 'getPlayersByCountryId'])->name('players_by_country_id');
 Route::get('players/team/{team_id}', [ApiController::class, 'getPlayersByTeamId'])->name('players_by_team_id');
 
+Route::get('dev', [ApiController::class, 'dev']);
+

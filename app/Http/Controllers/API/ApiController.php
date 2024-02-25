@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\Player;
 use App\Models\Team;
+use Database\Seeders\API\ApiFootballData;
 
 class ApiController extends Controller
 {
@@ -41,5 +43,14 @@ class ApiController extends Controller
     {
         $player = Player::where('country_id', $id)->get();
         return response()->json($player);
+    }
+
+    public function dev()
+    {
+        $api = new ApiFootballData;
+
+        $result = $api->getTeamsDataApi();
+dd($result);
+        return $result;
     }
 }
