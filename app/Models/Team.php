@@ -10,7 +10,7 @@ class Team extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'shortname','address','website','colors','code','funding_year','country_id', 'flag'];
+    protected $fillable = ['name', 'shortname','address','website','colors','code','funding_year','country_id', 'flag', 'api_external_id'];
 
 
     public function country()

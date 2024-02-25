@@ -2,14 +2,17 @@
 
 namespace Database\Seeders\API;
 use App\Models\Country;
+use App\Models\Player;
 use App\Models\Team;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-
+use Faker\Factory as Faker;
 
 class ApiFootballData
 {
 
+
+    //https://www.football-data.org/
 
     private function getApiData()
     {
@@ -76,9 +79,10 @@ class ApiFootballData
        
             $country = Country::where('name', $team->area->name)->first();
 
-            if (is_null($country)) dd($team);
 
-            Team::create([
+            Team::updateOrCreate(
+                ['api_external_id' => $team->id],
+                [
                 'address' => $team->address,
                 'name' => $team->name,
                 'shortname' => $team->shortName,
@@ -87,7 +91,44 @@ class ApiFootballData
                 'code' => $team->tla ?? strtoupper(substr($team->name,0,3)),
                 'funding_year' => $team->founded ?? date('Y'),
                 'country_id' => $country->id,
-                'flag' => $team->crest
+                'flag' => $team->crest,
+                'api_external_id' => $team->id
+            ]);
+        }
+    }
+
+    public function getPlayersDataApi(int $apiTeamId, int $teamId)
+    {
+        $jsonResponse = $this->makeApiRequest('teams/' . $apiTeamId );
+        $arraySquad = $jsonResponse->squad ?? null;
+
+        if (is_null($arraySquad)) {
+            dd('API bad response, no squad in the array', $jsonResponse);
+        }
+
+        $faker = Faker::create();
+
+        foreach ($arraySquad as $player) {
+
+            $country = Country::where('name', $player->nationality)->first();
+
+            // if (is_null($country)) dd($player);
+
+            $shortName = explode(' ',$player->name)[0];
+            
+            Player::updateOrCreate(
+                ['api_external_id' => $player->id],
+                [
+                'name' => $player->name,
+                'shortname' => $shortName,
+                'salary' => $faker->numberBetween(1000, 999999),
+                'position' => strtolower($player->position),
+                'city_of_birth' =>  $faker->city,
+                'birth_date' =>  $player->dateOfBirth,
+                'team_id' => $teamId,
+                'country_id' => $country->id ?? 12,
+                'side' => $faker->randomElement(['Center', 'Left', 'Right']),
+                'api_external_id' => $player->id
             ]);
         }
     }

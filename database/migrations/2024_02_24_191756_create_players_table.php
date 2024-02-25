@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('salary');
             $table->string('position');
             $table->string('side')->nullable();
+            $table->integer('api_external_id')->nullable();
             $table->timestamps();
         });
     }

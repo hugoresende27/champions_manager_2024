@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('rating')->nullable();
             $table->integer('stadium_id')->nullable();
             $table->text('flag')->nullable();
+            $table->integer('api_external_id')->nullable();
             $table->timestamps();
         });
     }
