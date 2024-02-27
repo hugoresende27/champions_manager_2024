@@ -52,6 +52,15 @@ return [
     */
 
     'channels' => [
+
+        'football_data_api' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/football_data_api.log'),
+            'level' => 'info',
+            'replace_placeholders' => true,
+        ],
+
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],

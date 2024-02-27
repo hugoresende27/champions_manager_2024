@@ -18,24 +18,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
+
+        $this->call(CountrySeeder::class);
+        $api = new ApiFootballData;
+        $api->createJobsToGetLeaguesDataApi();
+        $api->createJobsToGetPlayersDataApi();
+
+        $allTeams = Team::all();
+        foreach ($allTeams as $team) {
+  
+            // Player::factory(3)->create(['team_id' => $team->id]);
+        }
+
         //  User::factory()->create([
         //     'name' => 'Admin',
         //     'email' => 'admin@material.com',
         //     'password' => ('secret')
         // ]);
 
-        $this->call(CountrySeeder::class);
+
         // $this->call(TeamSeeder::class);
         // $this->call(PlayerSeeder::class);
-        $allTeams = Team::all();
-        foreach ($allTeams as $team) {
-  
-            Player::factory(3)->create(['team_id' => $team->id]);
-        }
+      
+      
 
-        $api = new ApiFootballData;
 
-        $api->getLeaguesDataApi();
+ 
 
         // $teams = Team::where('country_id', '<>', 31)->get();
         // foreach($teams as $team) {

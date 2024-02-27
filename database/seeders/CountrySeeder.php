@@ -19,7 +19,7 @@ class CountrySeeder extends Seeder
         $countriesArray = json_decode($jsonString, true);
 
         foreach ($countriesArray as $country) {
-            Country::create($country);
+            Country::updateOrCreate($country);
         }
     }
 }

@@ -27,5 +27,8 @@ Route::get('teams/country/{country_id}', [ApiController::class, 'getTeamsByCount
 Route::get('players/{team_id}', [ApiController::class, 'getPlayersById'])->name('players_by_id');
 Route::get('players/country/{country_id}', [ApiController::class, 'getPlayersByCountryId'])->name('players_by_country_id');
 Route::get('players/team/{team_id}', [ApiController::class, 'getPlayersByTeamId'])->name('players_by_team_id');
+
+
 Route::get('players-seed', [ApiController::class, 'seedPlayers']);
+Route::get('teams-seed', [ApiController::class, 'seedTeams']);
 

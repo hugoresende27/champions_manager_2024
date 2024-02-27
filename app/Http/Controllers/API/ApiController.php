@@ -45,17 +45,23 @@ class ApiController extends Controller
         return response()->json($player);
     }
 
+
+    
     public function seedPlayers()
     {
         $api = new ApiFootballData;
 
-        $teams = Team::where('country_id', '<>', 31)->get();
-        foreach($teams as $team) {
-            $api->getPlayersDataApi($team->api_external_id, $team->id); 
-            sleep(5);
-        }
-       
-        
-      
+        $api->createJobsToGetPlayersDataApi(); 
+
+    }
+
+
+
+    public function seedTeams()
+    {
+        $api = new ApiFootballData;
+
+        $api->createJobsToGetLeaguesDataApi();
+ 
     }
 }

@@ -19,6 +19,9 @@ class HomeController extends Controller
                     ->distinct('countries.id')
                     ->get();
 
+        // $countries = Country::all();
+
+
         return view('startgame', compact('countries'));
     }
 
