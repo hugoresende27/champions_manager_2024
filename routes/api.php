@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\ApiController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +28,7 @@ Route::get('players/country/{country_id}', [ApiController::class, 'getPlayersByC
 Route::get('players/team/{team_id}', [ApiController::class, 'getPlayersByTeamId'])->name('players_by_team_id');
 
 
-Route::get('players-seed', [ApiController::class, 'seedPlayers']);
-Route::get('teams-seed', [ApiController::class, 'seedTeams']);
+Route::get('countries-seed', [ApiController::class, 'seedCountries'])->name('countries.seed');
+Route::get('players-seed', [ApiController::class, 'seedPlayers'])->name('players.seed');
+Route::get('teams-seed', [ApiController::class, 'seedTeams'])->name('teams.seed');
 

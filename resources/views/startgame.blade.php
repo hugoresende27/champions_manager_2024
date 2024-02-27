@@ -52,9 +52,14 @@
           </div>
           
           <div class="p-2 m-2">
-            <a href="{{route('dashboard')}}">
-              <button id="start-game-btn" class="btn" style="display: none; background-color: red; color: white" ></button>
-            </a>
+            <form action="{{route('dashboard')}}">
+                <button id="start-game-btn" class="btn" style="display: none; background-color: red; color: white" type="submit"></button>
+                <input type="hidden" name="player_name_hidden" id="player_name_hidden" value="">
+                <input type="hidden" name="team_id_hidden" id="team_id_hidden" value="">
+            </form>
+            {{-- <a href="{{route('dashboard')}}">
+          
+            </a> --}}
           </div>
 
       </div>

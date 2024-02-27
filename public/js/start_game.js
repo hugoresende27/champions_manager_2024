@@ -1,5 +1,7 @@
 
 $(document).ready(function() {
+
+
     
     $('#country-select').change(function() {
         var countryId = $(this).val();
@@ -25,6 +27,7 @@ $(document).ready(function() {
                     $('#team-select').append($('<option>', {
                         value: team.id,
                         text: team.name,
+                        id: 'team-option-' + team.id 
                     }));
                 });
 
@@ -49,8 +52,13 @@ $(document).ready(function() {
         var teamName = $(this).find('option:selected').text();
         // Update the button text with the selected team's name
         $('#start-game-btn').text('Play with ' + teamName);
-        // Show the button
-        $('#start-game-btn').show();
+
+         // Get the ID of the selected team option
+        const selectedTeamId = $(this).children('option:selected').attr('id').replace('team-option-', '');
+        console.log(selectedTeamId);
+        // Set the value of the hidden team ID input field
+        $('#team_id_hidden').val(selectedTeamId);
+  
 
 
         var teamId = $(this).val();
@@ -82,12 +90,13 @@ $(document).ready(function() {
                     'background-color': colors[0], // Assuming the first color is for background
                     'color': colors[1] // Assuming the second color is for text
                 });
-                console.log(response)
+               
                 $('#team-name').text(response.name);
                 $('#team-funding-year').text(response.funding_year);
                 $('#team-code').text(response.code);
                 $('#team-website').attr('href',response.website);
                 $('#team-flag').attr('src', response.flag);
+
               
             },
             error: function(xhr, status, error) {
@@ -139,4 +148,18 @@ $(document).ready(function() {
         $('#team-players').show();
     });
     
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const playerNameInput = document.getElementById('player_name');
+    const playerNameHidden = document.getElementById('player_name_hidden');
+
+    playerNameInput.addEventListener('input', function() {
+        if (this.value.length >= 4) {
+            $('#start-game-btn').show();
+            playerNameHidden.value = this.value;
+        } 
+    });
 });

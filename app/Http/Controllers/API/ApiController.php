@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Player;
 use App\Models\Team;
 use Database\Seeders\API\ApiFootballData;
-
+use Illuminate\Support\Facades\File;
 class ApiController extends Controller
 {
 
@@ -53,6 +54,8 @@ class ApiController extends Controller
 
         $api->createJobsToGetPlayersDataApi(); 
 
+        return view ('index');
+
     }
 
 
@@ -62,6 +65,22 @@ class ApiController extends Controller
         $api = new ApiFootballData;
 
         $api->createJobsToGetLeaguesDataApi();
+
+        return view ('index');
  
+    }
+
+    public function seedCountries() 
+    { 
+        $jsonFilePath = public_path('assets/countries_list.json');
+
+        $jsonString = File::get($jsonFilePath);
+        $countriesArray = json_decode($jsonString, true);
+
+        foreach ($countriesArray as $country) {
+            Country::updateOrCreate($country);
+        }
+
+        return view('index');
     }
 }

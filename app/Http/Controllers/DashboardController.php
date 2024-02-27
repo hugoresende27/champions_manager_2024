@@ -8,19 +8,25 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+        $teamId = $request->team_id_hidden;
+        $emailGenerated = strtolower(trim(str_replace(' ','',$request->player_name_hidden))).rand(1,9999) . "_" . $teamId.'@hr.com';
+
         // Create the admin user
         $user = User::firstOrCreate(
                 [
           
-                    'email' => 'admin'.rand(1,9999).'@material.com',
+                    'email' => $emailGenerated,
+                    'about' =>  $teamId
 
                 ],
                 [
-                    'name' => 'Admin',
-                    'email' => 'admin'.rand(1,99).'@material.com',
-                    'password' => bcrypt('secret') // Note: Always hash passwords before storing
+                    'name' => $request->player_name_hidden,
+                    'email' => $emailGenerated,
+                    'password' => bcrypt('secret'),
+                    'about' =>  $teamId
                 ]
             );
 
