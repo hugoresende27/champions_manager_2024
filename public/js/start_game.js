@@ -153,12 +153,12 @@ $(document).ready(function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const playerNameInput = document.getElementById('player_name');
+    const playerNameInput = document.getElementById('player_name_input');
     const playerNameHidden = document.getElementById('player_name_hidden');
 
     playerNameInput.addEventListener('input', function() {
         if (this.value.length >= 4) {
-            $('#start-game-btn').show();
+            $('#start-game-btn').show();  
             playerNameHidden.value = this.value;
         } 
     });

@@ -11,4 +11,10 @@ class Player extends Model
 
     protected $fillable = ['name', 'shortname','country_id','team_id','city_of_birth','birth_date','salary','position', 'side', 'api_external_id'];
 
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
 }
