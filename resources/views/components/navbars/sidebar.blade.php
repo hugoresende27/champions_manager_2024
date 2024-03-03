@@ -18,8 +18,8 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples</h6>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'user-profile' ? 'active bg-gradient-primary' : '' }} "
-                    href="{{ route('user-profile') }}">
+                <a class="nav-link text-white {{ $activePage == 'team-profile' ? 'active bg-gradient-primary' : '' }} "
+                    href="{{ route('team-profile') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1.2rem;" class="fas fa-user-circle ps-2 pe-2 text-center"></i>
                     </div>
@@ -27,8 +27,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'user-management' ? ' active bg-gradient-primary' : '' }} "
-                    href="{{ route('user-management') }}">
+                <a class="nav-link text-white {{ $activePage == 'team-management' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('team-management') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
                     </div>
