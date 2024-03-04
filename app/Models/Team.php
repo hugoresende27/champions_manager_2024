@@ -18,9 +18,12 @@ class Team extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public static function getColors($teamId)
+    public static function getColors($teamId): array
     {
         $team = Team::where(['id' => $teamId])->first();
+        if(is_null($team->colors)) {
+            return ['darkred','white'];
+        }
         $colors = explode("/", $team ->colors);
         $lowercaseColors = array_map('strtolower', $colors);
         return $lowercaseColors;

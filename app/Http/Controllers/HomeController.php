@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-
+use Auth;
 class HomeController extends Controller
 {
     public function index()
     {
+        if (auth()->check()) {
+            Auth::logout();
+        }
+
         return view('index');
     }
 

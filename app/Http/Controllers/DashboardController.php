@@ -12,7 +12,8 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        if (is_null(auth()->user()->id)) {
+
+        if (!auth()->check() || !auth()->user()->id) {
             $teamId = $request->team_id;
             $emailGenerated = strtolower(trim(str_replace(' ','',$request->player_name))).rand(1,9999) . "_" . $teamId.'@hr.com';
     
@@ -36,9 +37,8 @@ class DashboardController extends Controller
             Auth::login($user);
         }
         
+        return $this->squad($request);
 
-
-        return view ('dashboard.index');
     }
 
     public function squad(Request $request)
