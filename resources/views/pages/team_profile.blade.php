@@ -2,7 +2,7 @@
     <x-navbars.sidebar activePage="team-profile"></x-navbars.sidebar>
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage='teamProfile'></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage='Team Profile'></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
    

@@ -21,8 +21,7 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than
-                                lask week</p>
+                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">100% </span>Total</p>
                         </div>
                     </div>
                 </div>
@@ -40,8 +39,7 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
-                                lask month</p>
+                            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">{{  round($team->percentages_budget,1) }}% </span>Transfers</p>
                         </div>
                     </div>
                 </div>
@@ -59,8 +57,7 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than
-                                yesterday</p>
+                            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">{{  100 - $team->percentages_budget  }}% </span>Wages</p>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ return new class extends Migration
             $table->decimal('total_budget', 10, 2)->default(0.00);
             $table->decimal('transfers_budget', 10, 2)->default(0.00);
             $table->decimal('wages_budget', 10, 2)->default(0.00);
+            $table->decimal('percentages_budget', 10, 2)->default(0.00);
         });
     }
 

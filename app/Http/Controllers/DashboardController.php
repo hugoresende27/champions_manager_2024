@@ -48,8 +48,9 @@ class DashboardController extends Controller
     }
     public function teamManagement(Request $request)
     {
-        dd('todo');
-        return view('dashboard.index');
+        $teamId = auth()->user()->about;
+        $team = $this->teamRepository->getTeamById($teamId);
+        return view('pages.team_management',compact('team'));
     }
     public function finances(Request $request)
     {
@@ -71,12 +72,22 @@ class DashboardController extends Controller
 
         foreach ($teams as $team) {
             $totalBudget = rand(100, 1000) * 1000;
-            $transfersBudget = rand(10, $totalBudget / 1000) * 1000;
+            $minTransfersPercentage = 50; // Minimum transfers budget percentage
+            $maxTransfersPercentage = 90; // Maximum transfers budget percentage
+            
+            // Calculate transfers budget percentage randomly within the defined range
+            $transfersPercentage = rand($minTransfersPercentage, $maxTransfersPercentage);
+            
+            // Calculate transfers budget based on the percentage
+            $transfersBudget = $totalBudget * ($transfersPercentage / 100);
+            
+            // Calculate wages budget
             $wagesBudget = $totalBudget - $transfersBudget;
-        
+            
             $team->total_budget = $totalBudget;
             $team->transfers_budget = $transfersBudget;
             $team->wages_budget = $wagesBudget;
+            $team->percentages_budget = $transfersPercentage;
             $team->save();
         }
 

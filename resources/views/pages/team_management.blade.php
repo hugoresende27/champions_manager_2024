@@ -1,16 +1,16 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="notifications"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="team-management"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Notifications"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Team Management"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="card mt-4">
                         <div class="card-header p-3">
-                            <h5 class="mb-0">Alerts</h5>
+                            <h5 class="mb-0">Team Management</h5>
                         </div>
                         <div class="card-body p-3 pb-0">
                             <div class="alert alert-primary alert-dismissible text-white" role="alert">
