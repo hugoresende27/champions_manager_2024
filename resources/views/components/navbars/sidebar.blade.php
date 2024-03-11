@@ -98,12 +98,15 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'rtl' ? ' active bg-gradient-primary' : '' }}  "
-                    href="">
+                <a class="nav-link text-white "
+                    style="background-color:  {{ $activePage == 'calendar' ? (App\Models\Team::getColors(auth()->user()->about)[1]) : '' }};"
+                    href="{{ route('calendar') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">event</i>
                     </div>
-                    <span class="nav-link-text ms-1">Calendar</span>
+                    <span class="nav-link-text ms-1" 
+                    style="color : {{ $activePage == 'calendar' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }}">
+                    Calendar</span>
                 </a>
             </li>
             {{-- <li class="nav-item">

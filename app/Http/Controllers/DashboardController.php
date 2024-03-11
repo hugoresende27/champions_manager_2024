@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\ChampionshipRepository;
 use App\Http\Repositories\PlayerRepository;
 use App\Http\Repositories\TeamRepository;
 use App\Http\Repositories\UserRepository;
 use Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,12 +16,18 @@ class DashboardController extends Controller
     public TeamRepository $teamRepository;
     public PlayerRepository $playerRepository;
     public UserRepository $userRepository;
+    public ChampionshipRepository $championshipRepository;
 
-    public function __construct(TeamRepository $teamRepository, PlayerRepository $playerRepository, UserRepository $userRepository)
+    public function __construct(
+        TeamRepository $teamRepository, 
+        PlayerRepository $playerRepository, 
+        UserRepository $userRepository, 
+        ChampionshipRepository $championshipRepository)
     {
         $this->teamRepository = $teamRepository;
         $this->playerRepository = $playerRepository;
         $this->userRepository = $userRepository;
+        $this->championshipRepository = $championshipRepository;
     }
     public function index(Request $request)
     {
@@ -58,6 +66,12 @@ class DashboardController extends Controller
         $team = $this->teamRepository->getTeamById($teamId);
         return view('pages.finances',compact('team'));
     }
+    public function calendar(Request $request)
+    {
+        $teamId = auth()->user()->about;
+        $team = $this->teamRepository->getTeamById($teamId);
+        return view('pages.calendar',compact('team'));
+    }
 
 
     private function generateGame(Request $request): void
@@ -69,6 +83,19 @@ class DashboardController extends Controller
 
         $team = $this->teamRepository->getTeamById($teamId);
         $teams = $this->teamRepository->getAllTeamsByCountryId($team->country_id);
+
+        $this->handleFinancesOnGenerateGame($teams);
+
+        $this->handleChampionshipOnGenerateGame($teams);
+
+
+
+        Auth::login($user);
+    }
+
+
+    private function handleFinancesOnGenerateGame(Collection $teams)
+    {
 
         foreach ($teams as $team) {
             $totalBudget = rand(100, 1000) * 1000;
@@ -90,7 +117,15 @@ class DashboardController extends Controller
             $team->percentages_budget = $transfersPercentage;
             $team->save();
         }
-
-        Auth::login($user);
     }
+
+
+    private function handleChampionshipOnGenerateGame(Collection $teams)
+    {
+        $totalTeams = count($teams);
+        foreach ($teams as $team) {
+            $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams);
+        }
+    }
+    
 }
