@@ -3,6 +3,9 @@
 - This is a classic football manager
 
 ![v1](./readme1.png)
+![v1](./readme2.png)
+![v1](./readme3.png)
+![v1](./readme4.png)
 
 - seeding database : 
 1. php artisan queue:work 
