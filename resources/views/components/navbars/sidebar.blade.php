@@ -26,56 +26,65 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white"
-                    style="background-color: {{ $activePage == 'team-profile' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }};
-                    color: {{(App\Models\Team::getColors(auth()->user()->about)[1])}}"
+                    style="background-color: {{ $activePage == 'team-profile' ? (App\Models\Team::getColors(auth()->user()->about)[1]) : '' }};"
                     href="{{ route('team-profile') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">announcement</i>
                     </div>
-                    <span class="nav-link-text ms-1">Team Profile</span>
+                    <span class="nav-link-text ms-1" 
+                    style="color : {{ $activePage == 'team-profile' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }}">
+                    Team Profile</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" 
-                    style="background-color: {{ $activePage == 'team-management' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }};
-                    color: {{(App\Models\Team::getColors(auth()->user()->about)[1])}}"
+                    style="background-color: {{ $activePage == 'team-management' ? (App\Models\Team::getColors(auth()->user()->about)[1]) : '' }};"
                     href="{{ route('team-management') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">assignment</i>
                     </div>
-                    <span class="nav-link-text ms-1">Team Management</span>
+                    <span class="nav-link-text ms-1" 
+                    style="color : {{ $activePage == 'team-management' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }}">
+                    Team Management</span>
                 </a>
             </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Coaching</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-primary' : '' }} "
+                <a class="nav-link text-white"
+                    style="background-color: {{ $activePage == 'coaching' ? (App\Models\Team::getColors(auth()->user()->about)[1]) : '' }};"
                     href="#">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">fitness_center</i>
                     </div>
-                    <span class="nav-link-text ms-1">Training</span>
+                    <span class="nav-link-text ms-1" 
+                    style="color : {{ $activePage == 'coaching' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }}">
+                    Training</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white "
-                    style="background-color: {{ $activePage == 'squad' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }};
-                    color: {{(App\Models\Team::getColors(auth()->user()->about)[1])}}""
+                    style="background-color: {{ $activePage == 'squad' ? (App\Models\Team::getColors(auth()->user()->about)[1]) : '' }};"
                     href="{{ route('squad') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">groups</i>
                     </div>
-                    <span class="nav-link-text ms-1">Squad</span>
+                    <span class="nav-link-text ms-1" 
+                    style="color : {{ $activePage == 'squad' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }}">
+                    Squad</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'billing' ? ' active bg-gradient-primary' : '' }}  "
-                    href="">
+                <a class="nav-link text-white "
+                    style="background-color:  {{ $activePage == 'finances' ? (App\Models\Team::getColors(auth()->user()->about)[1]) : '' }};"
+                    href="{{ route('finances') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">account_balance</i>
                     </div>
-                    <span class="nav-link-text ms-1">Finances</span>
+                    <span class="nav-link-text ms-1" 
+                    style="color : {{ $activePage == 'finances' ? (App\Models\Team::getColors(auth()->user()->about)[0]) : '' }}">
+                    Finances</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -140,7 +149,7 @@
         <div class="mx-3">
             <a class="btn  w-100" href=""
              style="background-color: {{(App\Models\Team::getColors(auth()->user()->about)[0])}};
-             color: {{(App\Models\Team::getColors(auth()->user()->about)[1])}}"">Settings</a>
+             color: {{(App\Models\Team::getColors(auth()->user()->about)[1])}}">Settings</a>
         </div>
         <div class="mx-3">
             <a class="btn  w-100" href="{{ route('home')}}"

@@ -28,4 +28,10 @@ class Team extends Model
         $lowercaseColors = array_map('strtolower', $colors);
         return $lowercaseColors;
     }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
+    
 }

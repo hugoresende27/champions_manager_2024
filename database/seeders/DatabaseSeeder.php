@@ -21,15 +21,20 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $this->call(CountrySeeder::class);
-        $api = new ApiFootballData;
-        $api->createJobsToGetLeaguesDataApi();
-        $api->createJobsToGetPlayersDataApi();
+        // $this->call(CountrySeeder::class);
+        // $api = new ApiFootballData;
+        // $api->createJobsToGetLeaguesDataApi();
+        // $api->createJobsToGetPlayersDataApi();
 
         $allTeams = Team::all();
         foreach ($allTeams as $team) {
   
-            // Player::factory(3)->create(['team_id' => $team->id]);
+            $playerCount = count($team->players);
+            $playersToAdd = max(20 - $playerCount, 0); // Determine how many players to add to reach 20
+            if ($playersToAdd > 0) {
+                Player::factory($playersToAdd)->create(['team_id' => $team->id]);
+            }
+          
         }
 
         //  User::factory()->create([

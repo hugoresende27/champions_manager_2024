@@ -20,7 +20,7 @@ class HomeController extends Controller
         $countries = Country::join('teams', 'countries.id', '=', 'teams.country_id')
                     ->join('players', 'teams.id', '=', 'players.team_id')
                     ->select('countries.*')
-                    ->distinct('countries.id')
+                    ->groupBy('countries.id') // Group by country to avoid duplicate countries
                     ->get();
 
         // $countries = Country::all();
