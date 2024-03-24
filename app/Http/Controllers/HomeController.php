@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\User;
 use Auth;
+
 class HomeController extends Controller
 {
     public function index()
@@ -28,6 +30,16 @@ class HomeController extends Controller
 
         return view('startgame', compact('countries'));
     }
+
+
+    public function savedGames()
+    {
+        $loads = User::all();
+        return view('loadgame', compact('loads'));
+    }
+    
+
+  
 
     
 }

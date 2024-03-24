@@ -21,6 +21,8 @@ use App\Http\Controllers\SessionsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/startgame', [HomeController::class, 'startGame'])->name('startgame');
+Route::get('/saved-games', [HomeController::class, 'savedGames'])->name('savedgames');
+Route::get('/loadgame/{game}', [DashboardController::class, 'loadgame'])->name('loadgame');
 
 
 

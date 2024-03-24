@@ -7,7 +7,7 @@ body {
 
 /* Centering the container horizontally and vertically */
 .container {
-  background-image: url('/images/stadium1.jpeg'); /* Specify the path to your background image */
+  background-image: url('/images/stadium1.jpeg'); 
   background-size: cover; /* Cover the entire container */
   background-position: center; /* Center the background image */
   height: 100vh; /* Set the height of the container to 100% of the viewport height */

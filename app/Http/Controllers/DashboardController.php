@@ -6,6 +6,7 @@ use App\Http\Repositories\ChampionshipRepository;
 use App\Http\Repositories\PlayerRepository;
 use App\Http\Repositories\TeamRepository;
 use App\Http\Repositories\UserRepository;
+use App\Models\User;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -38,6 +39,18 @@ class DashboardController extends Controller
         
         return $this->squad($request);
 
+    }
+
+
+    public function loadgame(Request $request)
+    {
+        $pathInfo = $request->path(); // Get the path of the request URL
+        $segments = explode('/', $pathInfo); // Split the path into segments
+        $gameId = end($segments); // Retrieve the last segment (which contains the game ID)
+
+        $user = User::where('id', $gameId)->first();
+        Auth::login($user);
+        return $this->squad(request());
     }
 
     public function squad(Request $request)

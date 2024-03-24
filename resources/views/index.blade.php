@@ -8,7 +8,10 @@
         </a>
         <div class="buttons">
           <a href="{{route('startgame')}}">
-            <button class="button">Start Game</button>
+            <button class="button">Start New Game</button>
+          </a>
+          <a href="{{route('savedgames')}}">
+            <button class="button">Load Game</button>
           </a>
           <button class="button" data-toggle="modal" data-target="#databaseModal">Database</button>
           <button class="button">Quit Game</button>
