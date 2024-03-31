@@ -47,13 +47,10 @@ class DashboardController extends Controller
     }
 
 
-    public function loadgame(Request $request)
+    public function loadgame(Request $request, $game_id)
     {
-        $pathInfo = $request->path(); // Get the path of the request URL
-        $segments = explode('/', $pathInfo); // Split the path into segments
-        $gameId = end($segments); // Retrieve the last segment (which contains the game ID)
 
-        $user = User::where('id', $gameId)->first();
+        $user = User::where('id', $game_id)->first();
         Auth::login($user);
         return $this->squad(request());
     }

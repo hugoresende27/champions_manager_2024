@@ -28,12 +28,12 @@
                             <td>{{ $loadUser->team()->first()->name }}</td>
                             <td>{{ $loadUser->created_at }}</td>
                             <td>
-                              <a href="{{ route('loadgame', ['game' => $loadUser->id]) }}">
+                              <a href="{{ route('loadgame', ['game_id' => $loadUser->id]) }}">
                                 <button class="btn" type="button"  
                                   style="background-color: {{ App\Models\Team::getColors($loadUser->team_id)[0] }}; color: {{ App\Models\Team::getColors($loadUser->team_id)[1] }}" 
                                   data-target="successToast">LOAD</button>
                               </a>
-                              <form action="{{ route('deletegame', ['game' => $loadUser->game_id]) }}" method="POST" style="display: inline;">
+                              <form action="{{ route('deletegame', ['game_id' => $loadUser->game_id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit">DELETE</button>

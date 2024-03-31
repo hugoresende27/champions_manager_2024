@@ -14,7 +14,7 @@
        
         <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href="#">
 
-            <span class="ms-2 font-weight-bold text-white">{{ date(' d/m/y - H : i') }}</span>
+            <span class="ms-2 font-weight-bold text-white">{{ (App\Services\GameService::currentGameDay()) }}</span>
            
         </a>
  

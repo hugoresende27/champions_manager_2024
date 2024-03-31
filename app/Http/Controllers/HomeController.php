@@ -46,16 +46,13 @@ class HomeController extends Controller
         $loads = User::all();
         return view('loadgame', compact('loads'));
     }
-    public function deleteGames(Request $request)
+    public function deleteGames(Request $request, $game_id)
     {
-        $pathInfo = $request->path(); // Get the path of the request URL
-        $segments = explode('/', $pathInfo); // Split the path into segments
-        $gameId = end($segments); // Retrieve the last segment (which contains the game ID)
 
        
-        User::where('game_id', $gameId)->delete();
-        Championship::where('game_id', $gameId)->delete();
-        Game::where('id', $gameId)->delete();
+        User::where('game_id', $game_id)->delete();
+        Championship::where('game_id', $game_id)->delete();
+        Game::where('id', $game_id)->delete();
 
         $loads = User::all();
         return view('loadgame', compact('loads'));

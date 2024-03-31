@@ -32,4 +32,12 @@ class GameService
     {
         return auth()->user()->team_id;
     }
+    public static function currentGameDay(?int $gameId = null): ?string
+    {
+      
+        if (is_null($gameId)) {
+            $gameId = auth()->user()->game_id;
+        }
+        return Game::where('id', $gameId)->value('current_date');
+    }
 }

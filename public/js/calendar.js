@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function() {
     var calendarContainer = document.getElementById("calendar");
 
@@ -5,9 +7,30 @@ document.addEventListener("DOMContentLoaded", function() {
     var currentYear = currentDate.getFullYear();
     var currentMonth = currentDate.getMonth();
 
-    renderCalendar(currentYear, currentMonth);
+    // Example of marked days (you can replace this with your own array of marked days)
+    // var markedDays = [5, 10, 15]; // Assuming 1-indexed days for simplicity
+    // Fetch current game day via AJAX
+    var gameId = 13;
+    $.ajax({
+        url: 'api/current-game-day/' + gameId,
+        type: 'GET',
+        success: function(response) {
 
-    function renderCalendar(year, month) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+
+    markedDays = [1];
+
+    console.log(markedDays, gameId, response);
+
+
+    renderCalendar(currentYear, currentMonth, markedDays);
+
+    function renderCalendar(year, month, markedDays) {
         var daysInMonth = new Date(year, month + 1, 0).getDate();
         var firstDayOfMonth = new Date(year, month, 1).getDay();
 
@@ -29,7 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else if (dayCounter > daysInMonth) {
                     break;
                 } else {
-                    calendarHTML += '<td>' + dayCounter + '</td>';
+                    // Check if the current day is in the array of marked days
+                    var isMarked = markedDays.includes(dayCounter);
+                    // Add a class to mark the day if it's in the array of marked days
+                    calendarHTML += '<td class="' + (isMarked ? 'marked-day' : '') + '">' + dayCounter + '</td>';
                     dayCounter++;
                 }
             }

@@ -42,4 +42,11 @@
     padding: 10px;
     text-align: center;
 }
+
+.marked-day {
+    background-color: #ffcc00; /* Example background color for marked days */
+    /* Add any other styles you want for marked days */
+}
+
+
 </style>

@@ -7,10 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Player;
 use App\Models\Team;
+use App\Services\GameService;
 use Database\Seeders\API\ApiFootballData;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 class ApiController extends Controller
 {
+
+    public function getCurrentGameDay(Request $request, $game_id)
+    {
+        return GameService::currentGameDay((int)$game_id);
+    }
+
 
     public function getTeamsByCountry(int $countryId)
     {
