@@ -25,6 +25,10 @@ return new class extends Migration
             $table->integer('stadium_id')->nullable();
             $table->text('flag')->nullable();
             $table->integer('api_external_id')->nullable();
+            $table->decimal('total_budget', 10, 2)->default(0.00);
+            $table->decimal('transfers_budget', 10, 2)->default(0.00);
+            $table->decimal('wages_budget', 10, 2)->default(0.00);
+            $table->decimal('percentages_budget', 10, 2)->default(0.00);
             $table->timestamps();
         });
     }

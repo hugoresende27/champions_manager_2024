@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('total_time_played')->default(0);
             
             $table->date('current_date');
+
             $table->timestamps();
         });
     }

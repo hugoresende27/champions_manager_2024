@@ -9,5 +9,15 @@ class Championship extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['country_id', 'team_id', 'total_games', 'games_played', 'win', 'draw', 'lost', 'points'];
+    protected $fillable = [
+        'country_id', 
+        'team_id', 
+        'total_games', 
+        'games_played', 
+        'win', 
+        'draw', 
+        'lost', 
+        'points',
+        'game_id'
+    ];
 }

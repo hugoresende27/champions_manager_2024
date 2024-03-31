@@ -22,17 +22,22 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($loads as $game)
-                          <tr style="background-color: {{ App\Models\Team::getColors($game->about)[1] }}; color: {{ App\Models\Team::getColors($game->about)[0] }}">
-                            <td>{{ $game->name }}</td>
-                            <td>{{ $game->team()->first()->name }}</td>
-                            <td>{{ $game->created_at }}</td>
+                          @foreach ($loads as $loadUser)
+                          <tr style="background-color: {{ App\Models\Team::getColors($loadUser->team_id)[1] }}; color: {{ App\Models\Team::getColors($loadUser->team_id)[0] }}">
+                            <td>{{ $loadUser->name }}</td>
+                            <td>{{ $loadUser->team()->first()->name }}</td>
+                            <td>{{ $loadUser->created_at }}</td>
                             <td>
-                              <a href="{{ route('loadgame', ['game' => $game->id]) }}">
+                              <a href="{{ route('loadgame', ['game' => $loadUser->id]) }}">
                                 <button class="btn" type="button"  
-                                  style="background-color: {{ App\Models\Team::getColors($game->about)[0] }}; color: {{ App\Models\Team::getColors($game->about)[1] }}" 
+                                  style="background-color: {{ App\Models\Team::getColors($loadUser->team_id)[0] }}; color: {{ App\Models\Team::getColors($loadUser->team_id)[1] }}" 
                                   data-target="successToast">LOAD</button>
                               </a>
+                              <form action="{{ route('deletegame', ['game' => $loadUser->game_id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" type="submit">DELETE</button>
+                              </form>
                             </td>
                           </tr>
                           @endforeach
@@ -40,7 +45,15 @@
                       </table>
                     </div>
                   </div>
+
+                
               </div>
+          </div>
+
+          <div class="text-center mt-3">
+            <a href="/">
+              <button class="btn btn-success">Back</button>
+            </a>
           </div>
       </div>
     </div>

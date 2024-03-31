@@ -10,8 +10,8 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class=" shadow-primary border-radius-lg pt-4 pb-3"
-                                     style="background-color: {{(App\Models\Team::getColors(auth()->user()->about)[0])}};
-                                     color: {{(App\Models\Team::getColors(auth()->user()->about)[1])}}">
+                                     style="background-color: {{(App\Models\Team::getColors(auth()->user()->team_id)[0])}};
+                                     color: {{(App\Models\Team::getColors(auth()->user()->team_id)[1])}}">
                                     
                                     <h6 class="text-white text-capitalize ps-3">Squad</h6>
                                 </div>

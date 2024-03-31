@@ -7,21 +7,23 @@ use App\Models\User;
 class UserRepository
 {
 
-    public function createAdminUser(int $teamId, string $emailGenerated, string $playerName): User
+    public function createGameUser(int $teamId, string $emailGenerated, string $playerName, int $gameId): User
     {
                 // Create the admin user
          return User::firstOrCreate(
                     [
               
                         'email' => $emailGenerated,
-                        'about' =>  $teamId
+                        'team_id' =>  $teamId,
+                        'game_id' => $gameId
     
                     ],
                     [
                         'name' => $playerName,
                         'email' => $emailGenerated,
                         'password' => bcrypt('secret'),
-                        'about' =>  $teamId
+                        'team_id' =>  $teamId,
+                        'game_id' => $gameId
                     ]
                 );
     }

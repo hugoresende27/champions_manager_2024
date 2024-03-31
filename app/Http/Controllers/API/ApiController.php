@@ -14,7 +14,14 @@ class ApiController extends Controller
 
     public function getTeamsByCountry(int $countryId)
     {
-        $teams = Team::where('country_id', $countryId)->get();
+        // $teams = Team::where('country_id', $countryId)->get();
+        $teams = Team::join('players', 'teams.id','=','players.team_id')
+                        ->havingRaw('COUNT(players.id) > ?', [10])  
+                        ->where('players.country_id', $countryId)
+                        ->groupBy('teams.id') 
+                        ->get('teams.*');
+
+                        // dd($teams);
         return response()->json($teams);
     }
 

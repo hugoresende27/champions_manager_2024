@@ -25,7 +25,9 @@ class User extends Authenticatable
         'location',
         'phone',
         'about',
-        'password_confirmation'
+        'password_confirmation',
+        'team_id',
+        'game_id'
     ];
 
     /**
@@ -56,7 +58,7 @@ class User extends Authenticatable
     {
         // $r = $this->belongsTo(Team::class, 'about', 'id');
         // dd($r);
-        return $this->belongsTo(Team::class, 'about', 'id');
+        return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
 }
