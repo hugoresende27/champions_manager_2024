@@ -15,6 +15,9 @@
         </main>
         <x-plugins></x-plugins>
 
+
+        <div id="gameId" data-var="{{ $gameId }}"></div>
+
 </x-layout>
 
 

@@ -3,32 +3,43 @@
 document.addEventListener("DOMContentLoaded", function() {
     var calendarContainer = document.getElementById("calendar");
 
-    var currentDate = new Date();
-    var currentYear = currentDate.getFullYear();
-    var currentMonth = currentDate.getMonth();
+    var gameId = document.getElementById('gameId').dataset.var;
 
-    // Example of marked days (you can replace this with your own array of marked days)
-    // var markedDays = [5, 10, 15]; // Assuming 1-indexed days for simplicity
-    // Fetch current game day via AJAX
-    var gameId = 13;
+    var markedDays = []; 
+
     $.ajax({
         url: 'api/current-game-day/' + gameId,
         type: 'GET',
         success: function(response) {
 
-            console.log(response);
+            var gameDate = new Date(response);
+            // Check if the parsed date is valid
+            if (!isNaN(gameDate.getTime())) {
+                // If valid, get the year, month, and day
+                var year = gameDate.getFullYear();
+                var month = gameDate.getMonth();
+                var day = gameDate.getDate();
+                // Add year, month, and day to the markedDays array
+                markedDays.push(day);
+
+                // Render the calendar with the marked days
+                renderCalendar(year, month, markedDays);
+            } else {
+                console.error('Invalid date format received from the server.');
+            }
         },
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
         }
     });
 
-    markedDays = [1];
+    
+    // markedDays = [day];
 
-    console.log(markedDays, gameId, response);
+    
 
 
-    renderCalendar(currentYear, currentMonth, markedDays);
+    // renderCalendar(currentYear, currentMonth, markedDays);
 
     function renderCalendar(year, month, markedDays) {
         var daysInMonth = new Date(year, month + 1, 0).getDate();

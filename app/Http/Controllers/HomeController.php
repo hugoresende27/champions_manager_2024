@@ -44,7 +44,8 @@ class HomeController extends Controller
     public function savedGames()
     {
         $loads = User::all();
-        return view('loadgame', compact('loads'));
+        $games = Game::all();
+        return view('loadgame', compact('loads','games'));
     }
     public function deleteGames(Request $request, $game_id)
     {

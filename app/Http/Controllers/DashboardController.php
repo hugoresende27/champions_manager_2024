@@ -56,6 +56,17 @@ class DashboardController extends Controller
     }
 
 
+    public function next(Request $request)
+    {
+        $next = GameService::nextOneDay();
+        
+        if ($next) {
+            //TODO action when next day is true
+        }
+
+        return $this->calendar($request);
+
+    }
 
 
     public function squad(Request $request)
@@ -65,6 +76,8 @@ class DashboardController extends Controller
         $team = $this->playerRepository->getPlayersTeamById($teamId);
         return view('pages.squad', compact('team'));
     }
+
+
     public function teamProfile(Request $request)
     {
 
@@ -87,8 +100,9 @@ class DashboardController extends Controller
     public function calendar(Request $request)
     {
         $teamId = GameService::userTeamId();
+        $gameId = GameService::userGameId();;
         $team = $this->teamRepository->getTeamById($teamId);
-        return view('pages.calendar',compact('team'));
+        return view('pages.calendar',compact('team','gameId'));
     }
 
 

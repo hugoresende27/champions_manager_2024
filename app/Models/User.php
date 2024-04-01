@@ -54,11 +54,16 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
+
     public function team()
     {
-        // $r = $this->belongsTo(Team::class, 'about', 'id');
-        // dd($r);
         return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+
+    
+    public function game()
+    {
+        return $this->belongsTo(Game::class, 'game_id', 'id');
     }
 
 }

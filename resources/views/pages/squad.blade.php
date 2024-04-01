@@ -8,14 +8,32 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card my-4">
+
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class=" shadow-primary border-radius-lg pt-4 pb-3"
                                      style="background-color: {{(App\Models\Team::getColors(auth()->user()->team_id)[0])}};
                                      color: {{(App\Models\Team::getColors(auth()->user()->team_id)[1])}}">
                                     
-                                    <h6 class="text-white text-capitalize ps-3">Squad</h6>
+                         
+
+                                    <div class="row p-2">
+                                        <div class="col-md-6">
+                                            <h6 class="text-white text-capitalize ps-3">
+                                                <span class="float-left">Squad</span>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-5 text-end">
+                                            <h6 class="text-white text-capitalize">
+                                                {{ (App\Services\GameService::userTeamName()->name)}}
+                                            </h6>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
+
+                      
+                            
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
@@ -46,7 +64,6 @@
                                         <tbody>
 
                                             @foreach ($team as $player)
-                                            {{-- {{dd($player)}} --}}
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
@@ -57,7 +74,8 @@
                                                             </div>
                                                             <div class="d-flex flex-column justify-content-center">
                                                                 <h6 class="mb-0 text-sm">{{$player->name}}</h6>
-                                                                <p class="text-xs text-secondary mb-0">{{$player->shortname}}
+                                                                <p class="text-xs text-secondary mb-0">
+                                                                    €{{ number_format($player->salary, 2, ',', '.') }}
                                                                 </p>
                                                             </div>
                                                         </div>

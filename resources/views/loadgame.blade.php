@@ -17,7 +17,7 @@
                           <tr>
                             <th>Coach</th>
                             <th>Team</th>
-                            <th>Created At</th>
+                            <th>Current Date</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -26,7 +26,7 @@
                           <tr style="background-color: {{ App\Models\Team::getColors($loadUser->team_id)[1] }}; color: {{ App\Models\Team::getColors($loadUser->team_id)[0] }}">
                             <td>{{ $loadUser->name }}</td>
                             <td>{{ $loadUser->team()->first()->name }}</td>
-                            <td>{{ $loadUser->created_at }}</td>
+                            <td>{{ $loadUser->game()->first()->current_date }}</td>
                             <td>
                               <a href="{{ route('loadgame', ['game_id' => $loadUser->id]) }}">
                                 <button class="btn" type="button"  

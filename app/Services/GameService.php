@@ -2,6 +2,8 @@
 
 namespace App\Services;
 use App\Models\Game;
+use App\Models\Team;
+use Carbon\Carbon;
 
 class GameService
 {
@@ -32,6 +34,21 @@ class GameService
     {
         return auth()->user()->team_id;
     }
+
+
+    public static function userGameId(): int
+    {
+        return auth()->user()->game_id;
+    }
+
+
+    public static function userTeamName(): Team
+    {
+        return Team::where('id', self::userTeamId())->first();
+    }
+
+
+
     public static function currentGameDay(?int $gameId = null): ?string
     {
       
@@ -40,4 +57,21 @@ class GameService
         }
         return Game::where('id', $gameId)->value('current_date');
     }
+
+
+    public static function nextOneDay(): bool
+    {
+        
+        $game = Game::where('id', self::userGameId())->first();
+
+        $currentDate = Carbon::parse($game->current_date);
+
+        $nextDay = $currentDate->addDay();
+
+        $game->update(['current_date' => $nextDay]);
+
+        return true;
+    }
+
+
 }

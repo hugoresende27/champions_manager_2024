@@ -12,7 +12,7 @@
     id="sidenav-main">
     <div class="sidenav-header">
        
-        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href="#">
+        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href="{{route('calendar')}}">
 
             <span class="ms-2 font-weight-bold text-white">{{ (App\Services\GameService::currentGameDay()) }}</span>
            
@@ -151,7 +151,7 @@
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
         <div class="mx-3">
-            <a class="btn  w-100" href=""
+            <a class="btn  w-100" href="{{route ('next')}}"
              style="background-color: green;
              color: white">NEXT DAY</a>
         </div>
