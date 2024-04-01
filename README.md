@@ -7,6 +7,11 @@
 ![v1](./readme3.png)
 ![v1](./readme4.png)
 
+
+- run the project
+1. composer install
+2. php artisan serve
+---------------------------------
 - seeding database : 
 1. php artisan queue:work 
 2. php artisan db:seed
