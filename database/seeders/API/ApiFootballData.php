@@ -163,13 +163,14 @@ class ApiFootballData
             // if (is_null($country)) dd($player);
 
             $shortName = explode(' ',$player->name)[0];
+
             
             Player::updateOrCreate(
                 ['api_external_id' => $player->id],
                 [
                 'name' => $player->name,
                 'shortname' => $shortName,
-                'salary' => $faker->numberBetween(1000, 999999),
+                'salary' => $faker->numberBetween(100, 999) * 100,
                 'position' => strtolower($player->position),
                 'city_of_birth' =>  $faker->city,
                 'birth_date' =>  $player->dateOfBirth,

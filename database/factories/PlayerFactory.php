@@ -37,7 +37,7 @@ class PlayerFactory extends Factory
             'shortname' =>    $firstName,
             'city_of_birth' => $this->faker->city,
             'birth_date' => $this->faker->dateTimeBetween('-39 years', '-16 years')->format('Y-m-d'),
-            'salary' => $this->faker->numberBetween(1000, 999999),
+            'salary' => $this->faker->numberBetween(100, 999) * 100,
             'position' => $this->faker->randomElement(['Forward', 'Midfielder', 'Defender', 'Goalkeeper']),
             'side' => $this->faker->randomElement(['Center', 'Left', 'Right']),
             'country_id' => Country::inRandomOrder()->first()->id,
