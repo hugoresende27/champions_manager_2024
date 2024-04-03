@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\CalendarRepository;
 use App\Http\Repositories\ChampionshipRepository;
 use App\Http\Repositories\PlayerRepository;
 use App\Http\Repositories\TeamRepository;
@@ -10,6 +11,7 @@ use App\Models\Game;
 use App\Models\User;
 use App\Services\GameService;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -27,12 +29,14 @@ class DashboardController extends Controller
         PlayerRepository $playerRepository, 
         UserRepository $userRepository, 
         ChampionshipRepository $championshipRepository,
+        CalendarRepository $calendarRepository,
         GameService $gameService)
     {
         $this->teamRepository = $teamRepository;
         $this->playerRepository = $playerRepository;
         $this->userRepository = $userRepository;
         $this->championshipRepository = $championshipRepository;
+        $this->calendarRepository = $calendarRepository;
         $this->gameService = $gameService;
     }
     public function index(Request $request)
@@ -109,6 +113,7 @@ class DashboardController extends Controller
     private function generateGame(Request $request): void
     {
         $teamId = $request->team_id;
+
         $emailGenerated = strtolower(trim(str_replace(' ','',$request->player_name))).rand(1,9999) . "_" . $teamId.'@hr.com';
 
         $gameId = $this->gameService->newGame($teamId);
@@ -116,11 +121,12 @@ class DashboardController extends Controller
         $user = $this->userRepository->createGameUser($teamId, $emailGenerated, $request->player_name, $gameId);
 
         $team = $this->teamRepository->getTeamById($teamId);
+
         $teams = $this->teamRepository->getAllTeamsByCountryId($team->country_id);
 
         $this->handleFinancesOnGenerateGame($teams);
 
-        $this->handleChampionshipOnGenerateGame($teams, $gameId);
+        $this->handleChampionshipOnGenerateGame($teams, $gameId, $user->id);
 
         
 
@@ -155,13 +161,56 @@ class DashboardController extends Controller
     }
 
 
-    private function handleChampionshipOnGenerateGame(Collection $teams, int $gameId)
+    private function handleChampionshipOnGenerateGame(Collection $teams, int $gameId, int $userId)
     {
         // dd($gameId);
         $totalTeams = count($teams);
         foreach ($teams as $team) {
-            $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams, $gameId);
+            $championshipId = $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams, $gameId);
+
         }
+
+        
+    
+        $teamIds = array_column($teams->toArray(), 'id');
+
+     
+
+        // Iterate over teams
+        foreach ($teams as $team) {
+
+           // Get current date
+           $currentDateString = GameService::currentGameDay($gameId);
+           $currentDate = Carbon::createFromFormat('Y-m-d', $currentDateString);
+                
+            foreach ($teamIds as $key => $opponent) {
+
+               
+                
+                    
+                if ($team['id'] != $opponent) {
+
+                    $game1Date = $this->getNextSaturdayOrSunday($currentDate);
+                    $this->calendarRepository->insertCalendarRecordForChampionship($team['id'], $opponent, $gameId, $game1Date, $championshipId, $userId );
+                    $currentDate = $game1Date->addWeek();
+                    // unset($team[$team['id']]);
+                    unset($teamIds[$key]);
+
+                }
+                
+            }
+
+              
+        }
+    }
+
+    private function getNextSaturdayOrSunday(Carbon $date)
+    {
+        // Get next Saturday or Sunday
+        while (!in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY])) {
+            $date->addDay();
+        }
+        return $date;
     }
     
 }

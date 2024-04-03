@@ -7,7 +7,7 @@ use App\Models\Championship;
 class ChampionshipRepository
 {
 
-    public function insertTeamRecordForChampionship(object $team, int $totalTeams, int $gameId): void
+    public function insertTeamRecordForChampionship(object $team, int $totalTeams, int $gameId): int
     {
         // Create a new championship game record
         $championship = Championship::create([
@@ -17,5 +17,7 @@ class ChampionshipRepository
             'game_id' => $gameId, 
             // Other game statistics can be initialized as needed
         ]);
+
+        return $championship->id;
     }
 }

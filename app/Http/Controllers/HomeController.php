@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Calendar;
 use App\Models\Championship;
 use App\Models\Country;
 use App\Models\Game;
@@ -21,11 +22,6 @@ class HomeController extends Controller
 
     public function startGame()
     {
-        // $countries = Country::join('teams', 'countries.id', '=', 'teams.country_id')
-        //             ->join('players', 'teams.id', '=', 'players.team_id')
-        //             ->select('countries.*')
-        //             ->groupBy('countries.id') // Group by country to avoid duplicate countries
-        //             ->get();
 
         $countries = Country::join('teams', 'countries.id', '=', 'teams.country_id')
             ->join('players', 'teams.id', '=', 'players.team_id')
@@ -50,7 +46,7 @@ class HomeController extends Controller
     public function deleteGames(Request $request, $game_id)
     {
 
-       
+        Calendar::where('game_id', $game_id)->delete();
         User::where('game_id', $game_id)->delete();
         Championship::where('game_id', $game_id)->delete();
         Game::where('id', $game_id)->delete();
