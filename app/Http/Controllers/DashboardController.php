@@ -23,6 +23,7 @@ class DashboardController extends Controller
     public UserRepository $userRepository;
     public ChampionshipRepository $championshipRepository;
     public GameService $gameService;
+    public CalendarRepository $calendarRepository;
 
     public function __construct(
         TeamRepository $teamRepository, 
@@ -128,9 +129,6 @@ class DashboardController extends Controller
 
         $this->handleChampionshipOnGenerateGame($teams, $gameId, $user->id);
 
-        
-
-
         Auth::login($user);
     }
 
@@ -165,43 +163,39 @@ class DashboardController extends Controller
     {
         // dd($gameId);
         $totalTeams = count($teams);
+        $teamIds = array_column($teams->toArray(), 'id');
+        $currentDateString = GameService::currentGameDay($gameId);
+        $currentDate = Carbon::createFromFormat('Y-m-d', $currentDateString);
+        $totalRounds = 18; 
+
+        $currentGameDate = $this->getNextSaturdayOrSunday($currentDate);
+        $scheduledGames = [];
         foreach ($teams as $team) {
-            $championshipId = $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams, $gameId);
+            $teamGameDate = $currentGameDate;
+            foreach ($teamIds as $opponentId) {
 
+                // if (count($scheduledGames) >= $totalRounds) {
+                //     break; // Stop scheduling games for this team if total rounds reached
+                // }
+
+                // Skip same team matchup
+                if ($team['id'] == $opponentId) {
+                    continue;
+                }
+                $championshipId = $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams, $gameId);
+                $this->calendarRepository->insertCalendarRecordForChampionship($team['id'], $opponentId, $gameId, $teamGameDate, $championshipId, $userId);
+                $teamGameDate = $teamGameDate->addWeek(); // Increment game date for the next game of the same team
+
+                $scheduledGames[] = [ // Keep track of scheduled games (optional)
+                    "team" => $team["id"],
+                    "opponent" => $opponentId,
+                    "date" => $teamGameDate->format("Y-m-d"),
+                  ];
+            }
         }
-
         
     
-        $teamIds = array_column($teams->toArray(), 'id');
-
-     
-
-        // Iterate over teams
-        foreach ($teams as $team) {
-
-           // Get current date
-           $currentDateString = GameService::currentGameDay($gameId);
-           $currentDate = Carbon::createFromFormat('Y-m-d', $currentDateString);
-                
-            foreach ($teamIds as $key => $opponent) {
-
-               
-                
-                    
-                if ($team['id'] != $opponent) {
-
-                    $game1Date = $this->getNextSaturdayOrSunday($currentDate);
-                    $this->calendarRepository->insertCalendarRecordForChampionship($team['id'], $opponent, $gameId, $game1Date, $championshipId, $userId );
-                    $currentDate = $game1Date->addWeek();
-                    // unset($team[$team['id']]);
-                    unset($teamIds[$key]);
-
-                }
-                
-            }
-
-              
-        }
+       
     }
 
     private function getNextSaturdayOrSunday(Carbon $date)
