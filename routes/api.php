@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('current-game-day/{game_id}', [ApiController::class, 'getCurrentGameDay'])->name('current-game-day');
+Route::get('all-matches/{game_id}', [ApiController::class, 'allMonthMatchesDays'])->name('all-matches');
 Route::get('teams/{team_id}', [ApiController::class, 'getTeamsById'])->name('teams_by_id');
 Route::get('teams/country/{country_id}', [ApiController::class, 'getTeamsByCountry'])->name('teams_by_country');
 

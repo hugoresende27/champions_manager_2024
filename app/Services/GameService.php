@@ -5,6 +5,7 @@ use App\Models\Calendar;
 use App\Models\Game;
 use App\Models\Team;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class GameService
 {
@@ -57,6 +58,23 @@ class GameService
             $gameId = auth()->user()->game_id;
         }
         return Game::where('id', $gameId)->value('current_date');
+    }
+    public static function allMonthMatchesDays(?int $gameId = null, ?int $teamId = null): Collection
+    {
+      
+        if (is_null($gameId)) {
+            $gameId = auth()->user()->game_id;
+        }
+        if (is_null($teamId)) {
+            $teamId = auth()->user()->team_id ?? Game::where('id', $gameId)->value('team_id');
+        }
+        $gameDate = self::currentGameDay($gameId);
+        $gameDateObject = new \DateTime($gameDate);
+        $currentMonth = $gameDateObject->format('m');
+        return Calendar::where('game_id', $gameId)
+            ->where('home_team_id', $teamId)
+            ->whereMonth('game_date', $currentMonth)
+            ->get();
     }
 
 

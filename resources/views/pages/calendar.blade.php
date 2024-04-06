@@ -46,10 +46,16 @@
     text-align: center;
 }
 
-.marked-day {
+.current-day {
     background-color: #ffcc00; /* Example background color for marked days */
     /* Add any other styles you want for marked days */
 }
+
+.game-day {
+    background-color: green;
+    color: white; /* Add text color to make it visible on the green background */
+}
+
 
 
 </style>

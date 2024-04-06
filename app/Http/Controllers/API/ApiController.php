@@ -18,6 +18,10 @@ class ApiController extends Controller
     {
         return GameService::currentGameDay((int)$game_id);
     }
+    public function allMonthMatchesDays(Request $request, $game_id)
+    {
+        return GameService::allMonthMatchesDays((int)$game_id);
+    }
 
 
     public function getTeamsByCountry(int $countryId)
