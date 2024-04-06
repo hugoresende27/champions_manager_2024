@@ -2,7 +2,8 @@
 
 namespace App\Http\Repositories;
 use App\Models\Calendar;
-
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class CalendarRepository
 {
@@ -11,14 +12,17 @@ class CalendarRepository
                                                         int $homeTeamId, 
                                                         int $awayTeamId, 
                                                         int $gameId, 
-                                                        string $gameDate, 
+                                                        Carbon $gameDate, 
                                                         int $championshipId, 
-                                                        int $userId): void
+                                                        int $userId,
+                                                        int $weeks): void
     {
+
+        
         // Create the corresponding calendar entry
             Calendar::updateOrCreate(
                 [
-                    'game_date' => $gameDate,
+                    'game_date' => (string)$gameDate,
                     'home_team_id' => $homeTeamId,
                     'away_team_id' => $awayTeamId,
                     'game_id' => $gameId,
@@ -26,12 +30,24 @@ class CalendarRepository
                     'user_id' => $userId,
                 ],
                 [
-                    'game_date' => $gameDate,
+                    'game_date' => (string)$gameDate,
                     'home_team_id' => $homeTeamId,
                     'away_team_id' => $awayTeamId,
                     'game_id' => $gameId,
                     'championship_id' => $championshipId,
                     'user_id' => $userId,
                 ]);
+    }
+
+
+
+
+    private function getNextSaturdayOrSunday(Carbon $date)
+    {
+        // Get next Saturday or Sunday
+        while (!in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY])) {
+            $date->addDay();
+        }
+        return $date;
     }
 }

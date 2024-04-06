@@ -7,6 +7,7 @@ use App\Http\Repositories\ChampionshipRepository;
 use App\Http\Repositories\PlayerRepository;
 use App\Http\Repositories\TeamRepository;
 use App\Http\Repositories\UserRepository;
+use App\Models\Calendar;
 use App\Models\Game;
 use App\Models\User;
 use App\Services\GameService;
@@ -14,6 +15,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Log;
 
 class DashboardController extends Controller
 {
@@ -159,52 +161,51 @@ class DashboardController extends Controller
     }
 
 
+
     private function handleChampionshipOnGenerateGame(Collection $teams, int $gameId, int $userId)
     {
-        // dd($gameId);
         $totalTeams = count($teams);
-        $teamIds = array_column($teams->toArray(), 'id');
         $currentDateString = GameService::currentGameDay($gameId);
-        $currentDate = Carbon::createFromFormat('Y-m-d', $currentDateString);
-        $totalRounds = 18; 
 
-        $currentGameDate = $this->getNextSaturdayOrSunday($currentDate);
-        $scheduledGames = [];
         foreach ($teams as $team) {
-            $teamGameDate = $currentGameDate;
-            foreach ($teamIds as $opponentId) {
-
-                // if (count($scheduledGames) >= $totalRounds) {
-                //     break; // Stop scheduling games for this team if total rounds reached
-                // }
-
-                // Skip same team matchup
-                if ($team['id'] == $opponentId) {
-                    continue;
-                }
-                $championshipId = $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams, $gameId);
-                $this->calendarRepository->insertCalendarRecordForChampionship($team['id'], $opponentId, $gameId, $teamGameDate, $championshipId, $userId);
-                $teamGameDate = $teamGameDate->addWeek(); // Increment game date for the next game of the same team
-
-                $scheduledGames[] = [ // Keep track of scheduled games (optional)
-                    "team" => $team["id"],
-                    "opponent" => $opponentId,
-                    "date" => $teamGameDate->format("Y-m-d"),
-                  ];
-            }
+            $championshipId = $this->championshipRepository->insertTeamRecordForChampionship($team, $totalTeams, $gameId);
         }
         
-    
-       
+        $teams = array_column($teams->toArray(),'id');
+        $totalTeams = count($teams);
+        $weeks = count($teams) * 2; // Number of weeks needed for both rounds
+        
+        // Loop through each week
+        for ($week = 0; $week < $weeks; $week++) {
+            // Determine the round based on the current week
+            $round = ($week < $weeks / 2) ? 1 : 2;
+            
+            // Determine the date for this week's games
+            $gameDate = Carbon::createFromFormat('Y-m-d', $currentDateString)->addWeeks($week);
+            
+            // Loop through each team
+            foreach ($teams as $key => $team) {
+                // Determine the opponent for this team in this week
+                $opponentIndex = ($team + $week) % $totalTeams;
+                $opponent = $teams[$opponentIndex];
+                
+                // Ensure teams do not play against themselves
+                if ($team != $opponent && $key % 2 == 0) {
+                    // Adjust the team and opponent based on the round
+                    if ($round == 2) {
+                        // Swap team and opponent for the second round
+                        list($team, $opponent) = array($opponent, $team);
+                    }
+                    
+                    // Schedule the game between $team and $opponent on $gameDate
+                    $this->calendarRepository->insertCalendarRecordForChampionship($team, $opponent, $gameId, $gameDate, $championshipId, $userId, $weeks);
+                }
+            }
+        }
     }
 
-    private function getNextSaturdayOrSunday(Carbon $date)
-    {
-        // Get next Saturday or Sunday
-        while (!in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY])) {
-            $date->addDay();
-        }
-        return $date;
-    }
+
+
+
     
 }
