@@ -89,6 +89,10 @@ class DashboardController extends Controller
     {
         return view('pages.training');
     }
+    public function tactics(Request $request)
+    {
+        return view('pages.tactics');
+    }
 
 
     public function teamProfile(Request $request)

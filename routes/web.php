@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('training', [DashboardController::class, 'training'])->name('training');
 	Route::get('finances', [DashboardController::class, 'finances'])->name('finances');
 	Route::get('calendar', [DashboardController::class, 'calendar'])->name('calendar');
+	Route::get('tactics', [DashboardController::class, 'tactics'])->name('tactics');
 	Route::get('next', [DashboardController::class, 'next'])->name('next');
 
 

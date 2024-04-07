@@ -5,7 +5,7 @@
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Manager</a></li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ $titlePage }}</li>
             </ol>
             <h6 class="font-weight-bolder mb-0">{{ $titlePage }}</h6>
@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                 <div class="input-group input-group-outline">
-                    <label class="form-label">Type here...</label>
+                    <label class="form-label">Search here...</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
@@ -22,8 +22,20 @@
                 <li class="nav-item d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                         <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Welcome {{ auth()->user()->name}}</span>
+                        <div class="d-inline-block">
+                            <span class="box"
+                                  style='background-color : {{ (App\Models\Team::getColors(auth()->user()->team_id)[0]) }} ; 
+                                         color :  {{ (App\Models\Team::getColors(auth()->user()->team_id)[1]) }}'
+                                >Coach: {{ auth()->user()->name }}</span>
+                        </div>
+                        <div class="d-inline-block">
+                            <span class="box"
+                                style='background-color : {{ (App\Models\Team::getColors(auth()->user()->team_id)[0]) }} ; 
+                                       color :  {{ (App\Models\Team::getColors(auth()->user()->team_id)[1]) }}'
+                                >Team: {{ (App\Services\GameService::userTeamName()->name) }}</span>
+                        </div>
                     </a>
+                    
                 </li>
             </ul>
 
@@ -143,3 +155,14 @@
         </div>
     </div>
 </nav>
+
+
+<style>
+    .box{
+        border: 2px solid black;
+        padding: 10px; /* Optional: Add padding for better spacing */
+        margin-right: 5px; /* Optional: Add margin to separate the boxes */
+        border-radius: 10px
+        
+    }
+</style>

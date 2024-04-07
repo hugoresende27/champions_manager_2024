@@ -130,7 +130,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
                     // Add ID of the away team as data attribute
                     var awayTeamUrl = isAwayTeam ? 'team-game/' + awayTeamId : ''; // Construct URL based on away team ID
-                    calendarHTML += '<td class="' + cellClass + '" data-away-team-id="' + awayTeamId + '" data-away-team-url="' + awayTeamUrl + '"><a href="' + awayTeamUrl + '">' + dayCounter + '</a></td>';
+                    // calendarHTML += '<td class="' + cellClass + '" data-away-team-id="' + awayTeamId + '" data-away-team-url="' + awayTeamUrl + '"><a href="' + awayTeamUrl + '">' + dayCounter + '</a></td>';
+           
+                    calendarHTML += '<td class="' + cellClass + '"><a href="' + awayTeamUrl + '">' + dayCounter + '</a></td>';
+                 
                     dayCounter++;
                 }
             }
@@ -142,6 +145,15 @@ document.addEventListener("DOMContentLoaded", function() {
     
         calendarHTML += '</tbody></table>';
         calendarContainer.innerHTML = calendarHTML;
+
+        document.querySelectorAll('.calendar-table td').forEach(function(td) {
+            td.addEventListener('click', function() {
+                var link = this.querySelector('a');
+                if (link) {
+                    link.click();
+                }
+            });
+        });
     }
     
     

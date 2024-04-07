@@ -55,6 +55,9 @@
     background-color: green;
     color: white; /* Add text color to make it visible on the green background */
 }
+.game-day:hover {
+    cursor: pointer;
+}
 
 
 

@@ -6,6 +6,9 @@
 ![v1](./readme2.png)
 ![v1](./readme3.png)
 ![v1](./readme4.png)
+![v1](./readme5.png)
+![v1](./readme6.png)
+![v1](./readme7.png)
 
 
 - run the project
