@@ -85,6 +85,12 @@ class DashboardController extends Controller
     }
 
 
+    public function training(Request $request)
+    {
+        return view('pages.training');
+    }
+
+
     public function teamProfile(Request $request)
     {
 
@@ -92,6 +98,14 @@ class DashboardController extends Controller
         $team = $this->teamRepository->getTeamById($teamId);
         return view('pages.team_profile', compact('team'));
     }
+
+    public function teamGame(Request $request)
+    {
+
+        $team = $this->teamRepository->getTeamById($request->team_id);
+        return view('pages.team_profile', compact('team'));
+    }
+
     public function teamManagement(Request $request)
     {
         $teamId = GameService::userTeamId();

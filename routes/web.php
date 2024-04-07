@@ -56,7 +56,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('squad', [DashboardController::class, 'squad'])->name('squad');
 	Route::get('team-profile', [DashboardController::class, 'teamProfile'])->name('team-profile');
+	Route::get('team-game/{team_id}', [DashboardController::class, 'teamGame'])->name('team-game');
 	Route::get('team-management', [DashboardController::class, 'teamManagement'])->name('team-management');
+	Route::get('training', [DashboardController::class, 'training'])->name('training');
 	Route::get('finances', [DashboardController::class, 'finances'])->name('finances');
 	Route::get('calendar', [DashboardController::class, 'calendar'])->name('calendar');
 	Route::get('next', [DashboardController::class, 'next'])->name('next');

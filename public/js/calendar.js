@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
     
                     // Add ID of the away team as data attribute
-                    var awayTeamUrl = isAwayTeam ? 'api/teams/' + awayTeamId : ''; // Construct URL based on away team ID
+                    var awayTeamUrl = isAwayTeam ? 'team-game/' + awayTeamId : ''; // Construct URL based on away team ID
                     calendarHTML += '<td class="' + cellClass + '" data-away-team-id="' + awayTeamId + '" data-away-team-url="' + awayTeamUrl + '"><a href="' + awayTeamUrl + '">' + dayCounter + '</a></td>';
                     dayCounter++;
                 }
