@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Repositories\CalendarRepository;
 use App\Http\Repositories\ChampionshipRepository;
+use App\Http\Repositories\CoachSettingsRepository;
 use App\Http\Repositories\PlayerRepository;
 use App\Http\Repositories\TeamRepository;
 use App\Http\Repositories\UserRepository;
-use App\Models\Calendar;
-use App\Models\Game;
 use App\Models\User;
 use App\Services\GameService;
 use Auth;
@@ -26,6 +25,8 @@ class DashboardController extends Controller
     public ChampionshipRepository $championshipRepository;
     public GameService $gameService;
     public CalendarRepository $calendarRepository;
+    public CoachSettingsRepository $coachSettingsRepository;
+
 
     public function __construct(
         TeamRepository $teamRepository, 
@@ -33,6 +34,7 @@ class DashboardController extends Controller
         UserRepository $userRepository, 
         ChampionshipRepository $championshipRepository,
         CalendarRepository $calendarRepository,
+        CoachSettingsRepository $coachSettingsRepository,
         GameService $gameService)
     {
         $this->teamRepository = $teamRepository;
@@ -40,6 +42,7 @@ class DashboardController extends Controller
         $this->userRepository = $userRepository;
         $this->championshipRepository = $championshipRepository;
         $this->calendarRepository = $calendarRepository;
+        $this->coachSettingsRepository = $coachSettingsRepository;
         $this->gameService = $gameService;
     }
     public function index(Request $request)
@@ -114,8 +117,20 @@ class DashboardController extends Controller
     {
         $teamId = GameService::userTeamId();
         $team = $this->teamRepository->getTeamById($teamId);
-        return view('pages.team_management',compact('team'));
+        $coachSettings = $this->coachSettingsRepository->getCoachSettingsGameById(GameService::userGameId());
+        return view('pages.team_management',compact('team', 'coachSettings'));
     }
+
+
+    public function updateCoachSettings(Request $request,int $game_id)
+    {
+        $teamId = GameService::userTeamId();
+        $team = $this->teamRepository->getTeamById($teamId);
+        $coachSettings = $this->coachSettingsRepository->updateCoachSettings($game_id, $request->all());
+        return view('pages.team_management',compact('team', 'coachSettings'));
+    }
+
+
     public function finances(Request $request)
     {
         $teamId = GameService::userTeamId();
@@ -125,7 +140,7 @@ class DashboardController extends Controller
     public function calendar(Request $request)
     {
         $teamId = GameService::userTeamId();
-        $gameId = GameService::userGameId();;
+        $gameId = GameService::userGameId();
         $team = $this->teamRepository->getTeamById($teamId);
         return view('pages.calendar',compact('team','gameId'));
     }

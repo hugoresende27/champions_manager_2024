@@ -12,37 +12,46 @@
                         <div class="card-header p-3">
                             <h5 class="mb-0  text-center">Team Management</h5>
 
+                            
                             <br>
                             <div class="row">
-                                <div class="col-6">
-                                    <ul class="list-group">
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="form-check form-switch ps-0">
-                                                <input class="form-check-input ms-auto" type="checkbox" id="playWings" checked>
-                                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="playWings">Day off after game day</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="form-check form-switch ps-0">
-                                                <input class="form-check-input ms-auto" type="checkbox" id="playCenter">
-                                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="playCenter">Player Development</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="form-check form-switch ps-0">
-                                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2" checked>
-                                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Team Meetings</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="form-check form-switch ps-0">
-                                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2" checked>
-                                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Scouting Reports</label>
-                                            </div>
-                                        </li>
-                                       
-                                    </ul>
-                                </div>
+                                <form action="{{ route('coach-settings.update', $coachSettings->game_id) }}" method="POST">
+                                    @csrf
+                                    {{-- @method('PUT') --}}
+                                    <div class="col-6">
+                                        <ul class="list-group">
+                                            
+                                            <li class="list-group-item border-0 px-0">
+                                                <div class="form-check form-switch ps-0">
+                                                    <input class="form-check-input ms-auto" type="checkbox" id="playWings" name="day_off" {{ $coachSettings->day_off ? 'checked' : '' }}>
+                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="playWings">Day off after game day</label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item border-0 px-0">
+                                                <div class="form-check form-switch ps-0">
+                                                    <input class="form-check-input ms-auto" type="checkbox" id="playCenter" name="player_dev" {{ $coachSettings->player_dev ? 'checked' : '' }}>
+                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="playCenter">Player Development</label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item border-0 px-0">
+                                                <div class="form-check form-switch ps-0">
+                                                    <input class="form-check-input ms-auto" type="checkbox" id="teamMeetings" name="team_meeting" {{ $coachSettings->team_meeting ? 'checked' : '' }}>
+                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="teamMeetings">Team Meetings</label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item border-0 px-0">
+                                                <div class="form-check form-switch ps-0">
+                                                    <input class="form-check-input ms-auto" type="checkbox" id="scoutingReports" name="scouting_report" {{ $coachSettings->scouting_report ? 'checked' : '' }}>
+                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="scoutingReports">Scouting Reports</label>
+                                                </div>
+                                            </li>
+                                        
+                                        </ul>
+
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+
+                                </form>
                                 <div class="col-6">
                                     <ul class="list-group">
 

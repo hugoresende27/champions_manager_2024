@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Calendar;
 use App\Models\Championship;
+use App\Models\CoachSetting;
 use App\Models\Country;
 use App\Models\Game;
 use App\Models\User;
@@ -13,7 +14,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (auth()->check()) {
+        if (!auth()->check()) {
             Auth::logout();
         }
 
@@ -46,6 +47,7 @@ class HomeController extends Controller
     public function deleteGames(Request $request, $game_id)
     {
 
+        CoachSetting::where('game_id', $game_id)->delete();
         Calendar::where('game_id', $game_id)->delete();
         User::where('game_id', $game_id)->delete();
         Championship::where('game_id', $game_id)->delete();

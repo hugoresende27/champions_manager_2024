@@ -6,9 +6,9 @@
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
    
-            <div class="page-header min-height-300 border-radius-xl mt-4"
+            <div class="page-header min-height-250 border-radius-xl mt-4"
                 style="background-color: {{ (App\Models\Team::getColors($team->id)[0]) }}">
-                {{-- <span class="mask    opacity-6"></span> --}}
+                <span class="mask    opacity-6 text-center mt-3"> TEAM Last games</span>
             </div>
             <div class="card card-body mx-3 mx-md-4 mt-n6">
                 <div class="row gx-4 mb-2">
@@ -32,7 +32,7 @@
                     
                 </div>
                 <div class="row">
-                    <div class="card">
+              
                         <div class="card-header pb-0 px-3">
                             <h6 class="mb-0">Team Information</h6>
                         </div>
@@ -67,7 +67,7 @@
                                
                             </ul>
                         </div>
-                    </div>
+          
 
                 </div>
             </div>

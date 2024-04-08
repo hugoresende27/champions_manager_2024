@@ -89,7 +89,7 @@
 
 
                         <div class="card-header p-3">
-                            <h5 class="mb-0 text-center">Balance : current_balance</h5>
+                            <h5 class="mb-0 text-center">Tactic Balance</h5>
                
                         </div>
                         <div class="card-body p-3">

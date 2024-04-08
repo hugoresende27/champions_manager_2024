@@ -127,6 +127,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (isAwayTeam) {
                         cellClass += ' away-team'; // Define CSS class for away team
                     }
+                    if (isMarked && isGameDay) {
+                        cellClass += ' today-game'; // Define CSS class for away team
+                    }
     
                     // Add ID of the away team as data attribute
                     var awayTeamUrl = isAwayTeam ? 'team-game/' + awayTeamId : ''; // Construct URL based on away team ID
