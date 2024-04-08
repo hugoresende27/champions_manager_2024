@@ -2,6 +2,9 @@
 
 namespace App\Services;
 use App\Models\Calendar;
+use App\Models\CoachSetting;
+use App\Models\Enum\BalanceEnum;
+use App\Models\Enum\TacticEnum;
 use App\Models\Game;
 use App\Models\Team;
 use Carbon\Carbon;
@@ -18,16 +21,35 @@ class GameService
     public function newGame(int $teamId): ?int
     {
 
-       
         $game = Game::create([
                                 'team_id' => $teamId,
                                 'current_date' => '2024-06-01',
-
                             ]);
-
         $game->save();
-                           
+
+
         return $game->id ?? null;
+    }
+
+
+    public function newGameCoachSettings(int $userId, int $teamId, int $gameId): void
+    {
+
+        
+        $coachingSettings = CoachSetting::create([
+                                'team_id' => $teamId,
+                                'user_id' => $userId,
+                                'game_id' => $gameId,
+                                'trainning' => 1,
+                                'tactics_wings' => true,
+                                'man_marking' => true,
+                                'smooth' => true,
+                                'balance' => BalanceEnum::BALANCE_ATTACK,
+                                'tactic' => TacticEnum::FOUR_FOUR_TWO,
+                            ]);
+        $coachingSettings->save();
+
+
     }
 
 

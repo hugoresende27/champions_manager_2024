@@ -24,4 +24,16 @@ class Game extends Model
         'total_time_played',
         'current_date',
     ];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+
 }

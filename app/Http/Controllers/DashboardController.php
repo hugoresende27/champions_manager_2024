@@ -149,7 +149,15 @@ class DashboardController extends Controller
 
         $this->handleChampionshipOnGenerateGame($teams, $gameId, $user->id);
 
+        $this->handleCoachingSettings($user->id, $teamId, $gameId);
+
         Auth::login($user);
+    }
+    
+
+    private function handleCoachingSettings(int $userId, int $teamId, int $gameId)
+    {
+        $this->gameService->newGameCoachSettings($userId, $teamId, $gameId);
     }
 
 
