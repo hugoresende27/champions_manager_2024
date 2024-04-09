@@ -33,7 +33,8 @@
                                   style="background-color: {{ App\Models\Team::getColors($loadUser->team_id)[0] }}; color: {{ App\Models\Team::getColors($loadUser->team_id)[1] }}" 
                                   data-target="successToast">LOAD</button>
                               </a>
-                              <form action="{{ route('deletegame', ['game_id' => $loadUser->game_id]) }}" method="POST" style="display: inline;">
+                              <form action="{{ route('deletegame', ['game_id' => $loadUser->game_id]) }}" method="POST" style="display: inline;" 
+                                onsubmit="return confirm('Are you sure you want to delete this game?');">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit">DELETE</button>

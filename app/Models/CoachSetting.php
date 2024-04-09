@@ -17,7 +17,7 @@ class CoachSetting extends Model
         'player_dev',
         'team_meeting',
         'scouting_report',
-        'trainning',
+        'training',
         'tactics_wings',
         'tactics_center',
         'defense_line',

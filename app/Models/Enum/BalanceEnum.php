@@ -8,4 +8,6 @@ class BalanceEnum
     public const BALANCE_ATTACK = 'balance_attack';
     public const DEFENDING = 'defending';
     public const ALL_DEFEND = 'all_defend';
+
 }
+

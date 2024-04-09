@@ -15,14 +15,13 @@
                                     <h5 class="mb-0">Training Intensity</h5>
                                 </div>
                                 <div class="card-body">
-                                    {{-- <form action="{{ route('update_training_intensity') }}" method="POST"> --}}
-                                    <form method="POST">
+                                    <form action="{{ route('coach-settings.training.update', $coachSettings->game_id) }}" method="POST">
                                         @csrf
                                         <div class="form-group">
                                             <label for="intensityRange">Intensity Level:</label>
                                             <hr>
-                                            <input type="range" class="form-range" id="intensityRange" name="intensity"
-                                                min="1" max="3" value="2">
+                                            <input type="range" class="form-range" id="intensityRange" name="training"
+                                                min="1" max="3" value="{{ $coachSettings->training }}">
                                                 <div class="text-center">
                                                     <div id="intensityLevel">Medium</div>
                                                 </div>
@@ -47,8 +46,43 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+
+
         var intensityRange = document.getElementById('intensityRange');
         var intensityLevel = document.getElementById('intensityLevel');
+        // console.log(intensityLevel, intensityRange);
+
+        function handleMouseMove(event) {
+        // Your event handling code here
+        
+        console.log("Mouse moved!");
+        var value = parseInt(intensityRange.value);
+        var level = '';
+
+
+            switch (value) {
+                case 1:
+                    level = 'Light';
+                    break;
+                case 2:
+                    level = 'Medium';
+                    break;
+                case 3:
+                    level = 'Heavy';
+                    break;
+                default:
+                    level = '';
+            }
+            intensityLevel.textContent = level;
+
+        // Remove the event listener after it has been executed once
+        document.removeEventListener("mousemove", handleMouseMove);
+        }
+
+        // Attach the event listener to the document's mousemove event
+        document.addEventListener("mousemove", handleMouseMove);
+
+
 
         intensityRange.addEventListener('input', function() {
             var value = parseInt(intensityRange.value);

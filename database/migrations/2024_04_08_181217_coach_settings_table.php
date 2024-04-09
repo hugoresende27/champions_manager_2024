@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('player_dev')->default(false);
             $table->boolean('team_meeting')->default(false);
             $table->boolean('scouting_report')->default(false);
-            $table->integer('trainning')->nullable();
+            $table->integer('training')->nullable();
             $table->boolean('tactics_wings')->default(false);
             $table->boolean('tactics_center')->default(false);
             $table->boolean('defense_line')->default(false);

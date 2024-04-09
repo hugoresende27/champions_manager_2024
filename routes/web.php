@@ -63,7 +63,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('calendar', [DashboardController::class, 'calendar'])->name('calendar');
 	Route::get('tactics', [DashboardController::class, 'tactics'])->name('tactics');
 	Route::get('next', [DashboardController::class, 'next'])->name('next');
-	Route::post('coach-settings/{game_id}', [DashboardController::class, 'updateCoachSettings'])->name('coach-settings.update');
+	Route::post('coach-settings-team/{game_id}', [DashboardController::class, 'updateCoachTeamSettings'])->name('coach-settings.team.update');
+	Route::post('coach-settings-training/{game_id}', [DashboardController::class, 'updateCoachTrainingSettings'])->name('coach-settings.training.update');
+	Route::post('coach-settings-tactics/{game_id}', [DashboardController::class, 'updateCoachTacticsSettings'])->name('coach-settings.tactics.update');
 
 
 

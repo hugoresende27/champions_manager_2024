@@ -15,9 +15,9 @@
                             
                             <br>
                             <div class="row">
-                                <form action="{{ route('coach-settings.update', $coachSettings->game_id) }}" method="POST">
+                                <form action="{{ route('coach-settings.team.update', $coachSettings->game_id) }}" method="POST">
                                     @csrf
-                                    {{-- @method('PUT') --}}
+                        
                                     <div class="col-6">
                                         <ul class="list-group">
                                             

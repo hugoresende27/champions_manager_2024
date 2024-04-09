@@ -90,11 +90,32 @@ class DashboardController extends Controller
 
     public function training(Request $request)
     {
-        return view('pages.training');
+        $coachSettings = $this->coachSettingsRepository->getCoachSettingsGameById(GameService::userGameId());
+        return view('pages.training',compact('coachSettings'));
     }
+
+    public function updateCoachTrainingSettings(Request $request,int $game_id)
+    {
+        $teamId = GameService::userTeamId();
+        $team = $this->teamRepository->getTeamById($teamId);
+        $coachSettings = $this->coachSettingsRepository->updateCoachTrainingSettings($game_id, $request->all());
+        return view('pages.training',compact('team', 'coachSettings'));
+    }
+
+
+
     public function tactics(Request $request)
     {
-        return view('pages.tactics');
+        $coachSettings = $this->coachSettingsRepository->getCoachSettingsGameById(GameService::userGameId());
+        return view('pages.tactics',compact('coachSettings'));
+    }
+
+    public function updateCoachTacticsSettings(Request $request,int $game_id)
+    {
+        $teamId = GameService::userTeamId();
+        $team = $this->teamRepository->getTeamById($teamId);
+        $coachSettings = $this->coachSettingsRepository->updateCoachTacticsSettings($game_id, $request->all());
+        return view('pages.tactics',compact('team', 'coachSettings'));
     }
 
 
@@ -122,13 +143,14 @@ class DashboardController extends Controller
     }
 
 
-    public function updateCoachSettings(Request $request,int $game_id)
+    public function updateCoachTeamSettings(Request $request,int $game_id)
     {
         $teamId = GameService::userTeamId();
         $team = $this->teamRepository->getTeamById($teamId);
-        $coachSettings = $this->coachSettingsRepository->updateCoachSettings($game_id, $request->all());
+        $coachSettings = $this->coachSettingsRepository->updateCoachTeamSettings($game_id, $request->all());
         return view('pages.team_management',compact('team', 'coachSettings'));
     }
+
 
 
     public function finances(Request $request)
