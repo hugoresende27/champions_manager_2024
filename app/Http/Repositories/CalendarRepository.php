@@ -18,7 +18,7 @@ class CalendarRepository
                                                         int $weeks): void
     {
 
-        
+        $gameDate = $this->getNextSaturdayOrSunday($gameDate);
         // Create the corresponding calendar entry
             Calendar::updateOrCreate(
                 [
@@ -49,5 +49,17 @@ class CalendarRepository
             $date->addDay();
         }
         return $date;
+    }
+
+    public function checkIfGameExist(int $gameId, int $teamId, $currentDate): Collection
+    {
+        return Calendar::where([
+            'game_id' => $gameId,
+            'game_date' => $currentDate,
+        ])->where(function($query) use ($teamId) {
+            $query->where('home_team_id', $teamId)
+                ->orWhere('away_team_id', $teamId);
+        })->get();
+        
     }
 }

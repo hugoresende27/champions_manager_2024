@@ -68,11 +68,18 @@ class DashboardController extends Controller
 
     public function next(Request $request)
     {
-        $next = GameService::nextOneDay();
+        $nextDay = GameService::nextOneDay();
         
-        if ($next) {
-            //TODO action when next day is true
+
+        $checkIfGame = $this->calendarRepository->checkIfGameExist(GameService::userGameId(),GameService::userTeamId(), $nextDay);
+
+   
+        if (!$checkIfGame->isEmpty()) {
+
+            echo 'game';
         }
+
+
 
         return $this->calendar($request);
 
@@ -237,15 +244,20 @@ class DashboardController extends Controller
         $teams = array_column($teams->toArray(),'id');
         $totalTeams = count($teams);
         $weeks = count($teams) * 2; // Number of weeks needed for both rounds
+    
         
         // Loop through each week
         for ($week = 0; $week < $weeks; $week++) {
             // Determine the round based on the current week
             $round = ($week < $weeks / 2) ? 1 : 2;
             
+            if ($week == 1 && $round == 1) {
+                $gameDate = Carbon::createFromFormat('Y-m-d', $currentDateString)->addWeeks(3);
+            }
             // Determine the date for this week's games
             $gameDate = Carbon::createFromFormat('Y-m-d', $currentDateString)->addWeeks($week);
             
+         
             // Loop through each team
             foreach ($teams as $key => $team) {
                 // Determine the opponent for this team in this week

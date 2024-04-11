@@ -100,7 +100,7 @@ class GameService
     }
 
 
-    public static function nextOneDay(): bool
+    public static function nextOneDay(): ?string
     {
         
         $game = Game::where('id', self::userGameId())->first();
@@ -111,7 +111,8 @@ class GameService
 
         $game->update(['current_date' => $nextDay]);
 
-        return true;
+        
+        return $game->current_date->format('Y-m-d');
     }
 
 

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var fullObjectAwayGames = [];
     var year = '';
     var month = '';
+    var gameDays = [];
     // Make request to get current game day
     $.ajax({
         url: 'api/current-game-day/' + gameId,
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
         url: 'api/all-matches/' + gameId,
         type: 'GET',
         success: function(response) {
-            var gameDays = [];
+           
 
          
             response.forEach(function(match) {
@@ -72,7 +73,9 @@ document.addEventListener("DOMContentLoaded", function() {
             renderCalendar(year, month, markedDays, gameDays,fullObjectAwayGames); // Pass gameDays to renderCalendar
         },
         error: function(xhr, status, error) {
-            console.error(xhr.responseText);
+            // console.error(xhr.responseText);
+            console.log('erro')
+            renderCalendar(year, month, markedDays, gameDays,fullObjectAwayGames);
         }
     });
 
