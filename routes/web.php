@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatGPTController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -68,6 +69,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('coach-settings-tactics/{game_id}', [DashboardController::class, 'updateCoachTacticsSettings'])->name('coach-settings.tactics.update');
 
 
+	//ChatGPT
+	Route::get('/chatgpt', [ChatGPTController::class, 'index'])->name('chatgpt.index');
+	Route::post('/chatgpt/ask', [ChatGPTController::class, 'ask'])->name('chatgpt.ask');
 
 	Route::get('rtl', function () {
 		return view('pages.rtl');

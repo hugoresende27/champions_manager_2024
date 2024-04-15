@@ -13,10 +13,13 @@
     <div class="sidenav-header">
        
         <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href="{{route('calendar')}}">
-
-            <span class="ms-2 font-weight-bold text-white">{{ (App\Services\GameService::currentGameDay()) }}</span>
-           
+            <button class="btn btn-secondary w-100">
+                <span class="ms-2 font-weight-bold text-white">{{ (App\Services\GameService::currentGameDay()) }}</span>
+            </button>
         </a>
+ 
+           
+       
  
     </div>
     <hr class="horizontal light mt-0 mb-0">

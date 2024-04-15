@@ -7,8 +7,10 @@
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Manager</a></li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ $titlePage }}</li>
+               
             </ol>
             <h6 class="font-weight-bolder mb-0">{{ $titlePage }}</h6>
+        
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -17,6 +19,8 @@
                     <input type="text" class="form-control">
                 </div>
             </div>
+
+       
 
             <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-flex align-items-center">
@@ -34,6 +38,16 @@
                                        color :  {{ (App\Models\Team::getColors(auth()->user()->team_id)[1]) }}'
                                 >Team: {{ (App\Services\GameService::userTeamName()->name) }}</span>
                         </div>
+
+                        <a href="{{ route('chatgpt.index')}}">
+                            <div class="d-inline-block">
+                                <span class="box bg-secondary text-white">
+                    
+                                        AI
+                        
+                                </span>
+                            </div>
+                        </a>
                     </a>
                     
                 </li>
